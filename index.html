@@ -1,0 +1,829 @@
+<title>Sportify Fest Badminton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f7f4ea;
+    --ink:#1b241f;
+    --ink-dim:#5c6b60;
+    --line:#ddd5bf;
+    --court:#1f6f4e;
+    --court-strong:#164f38;
+    --court-soft:#e3efe6;
+    --shuttle:#dd9a2b;
+    --shuttle-soft:#f8e9cd;
+    --surface:#ffffff;
+    --surface-dim:#efeade;
+    --shadow: 0 1px 2px rgba(27,36,31,.06), 0 8px 24px -12px rgba(27,36,31,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0f1613;
+      --ink:#edf1ec;
+      --ink-dim:#9bab9f;
+      --line:#26332c;
+      --court:#57c78a;
+      --court-strong:#7fdba8;
+      --court-soft:#152420;
+      --shuttle:#f0b653;
+      --shuttle-soft:#2b2214;
+      --surface:#161e1a;
+      --surface-dim:#1c2620;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0f1613;
+    --ink:#edf1ec;
+    --ink-dim:#9bab9f;
+    --line:#26332c;
+    --court:#57c78a;
+    --court-strong:#7fdba8;
+    --court-soft:#152420;
+    --shuttle:#f0b653;
+    --shuttle-soft:#2b2214;
+    --surface:#161e1a;
+    --surface-dim:#1c2620;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Work Sans", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.4;
+  }
+  h1,h2,h3,.display{
+    font-family:"Big Shoulders Display","Work Sans",sans-serif;
+    font-weight:800;
+    letter-spacing:.01em;
+    text-wrap:balance;
+    text-transform:uppercase;
+  }
+  .mono{ font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums; }
+  a{ color:inherit; }
+  ::selection{ background:var(--shuttle-soft); }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:20px 16px 64px; }
+
+  /* ---------- header ---------- */
+  header.top{
+    padding:22px 0 18px;
+    border-bottom:3px solid var(--court);
+    margin-bottom:18px;
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--court);
+    font-weight:600;
+    display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow .dot{ width:7px;height:7px;border-radius:50%;background:var(--shuttle); }
+  h1.title{
+    font-size:clamp(28px,6vw,44px);
+    line-height:.98;
+    margin:6px 0 8px;
+    color:var(--ink);
+  }
+  h1.title em{
+    font-style:normal;
+    color:var(--court);
+  }
+  .subtitle{
+    color:var(--ink-dim);
+    font-size:14px;
+    max-width:60ch;
+    margin-bottom:14px;
+  }
+  .stat-row{
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .stat-chip{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:6px 11px;
+    font-size:12.5px;
+    color:var(--ink-dim);
+    box-shadow:var(--shadow);
+    display:flex; align-items:baseline; gap:5px;
+  }
+  .stat-chip b{
+    font-family:"IBM Plex Mono",monospace;
+    color:var(--ink);
+    font-size:13.5px;
+  }
+  .mode-chip{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:11.5px; font-weight:600; padding:5px 10px; border-radius:999px;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink-dim);
+  }
+  .mode-chip.admin{ border-color:var(--court); color:var(--court-strong); background:var(--court-soft); }
+  .mode-chip .dotm{ width:6px; height:6px; border-radius:50%; background:currentColor; }
+  .auth-btn{
+    font:inherit; font-size:11px; font-weight:700; cursor:pointer; margin-left:4px;
+    padding:3px 9px; border-radius:999px; border:1px solid currentColor; background:transparent; color:inherit;
+  }
+
+  /* ---------- controls ---------- */
+  .controls{
+    position:sticky; top:0; z-index:20;
+    background:var(--paper);
+    padding:12px 0 10px;
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+    border-bottom:1px solid var(--line);
+    margin-bottom:16px;
+  }
+  .tabs{ display:flex; gap:4px; background:var(--surface-dim); padding:4px; border-radius:10px; }
+  .tab-btn{
+    appearance:none; border:0; background:transparent; cursor:pointer;
+    font-family:"Big Shoulders Display",sans-serif; font-weight:700; text-transform:uppercase;
+    letter-spacing:.03em; font-size:14.5px; color:var(--ink-dim);
+    padding:8px 16px; border-radius:7px; transition:background .15s, color .15s;
+  }
+  .tab-btn[aria-selected="true"]{ background:var(--court); color:#fff; }
+  .searchbox{
+    flex:1 1 200px; min-width:160px; position:relative;
+  }
+  .searchbox input{
+    width:100%; font:inherit; font-size:14px; padding:9px 12px 9px 32px;
+    border-radius:9px; border:1px solid var(--line); background:var(--surface); color:var(--ink);
+  }
+  .searchbox input:focus{ outline:2px solid var(--court); outline-offset:1px; }
+  .searchbox svg{ position:absolute; left:9px; top:50%; transform:translateY(-50%); opacity:.55; }
+  .chipset{ display:flex; flex-wrap:wrap; gap:6px; }
+  .chip{
+    appearance:none; cursor:pointer; font:inherit; font-size:12.5px; font-weight:600;
+    padding:6px 12px; border-radius:999px; border:1px solid var(--line);
+    background:var(--surface); color:var(--ink-dim);
+  }
+  .chip[aria-pressed="true"]{ background:var(--court-soft); border-color:var(--court); color:var(--court-strong); }
+
+  section.view{ display:none; }
+  section.view.active{ display:block; }
+
+  /* ---------- jadwal ---------- */
+  .day-block{ margin-bottom:22px; }
+  .day-head{
+    display:flex; align-items:baseline; gap:10px; margin-bottom:8px;
+    padding-bottom:6px; border-bottom:1px dashed var(--line);
+  }
+  .day-head h2{ font-size:20px; margin:0; color:var(--ink); }
+  .day-head .count{ font-size:12px; color:var(--ink-dim); font-family:"IBM Plex Mono",monospace; }
+
+  .match-row{
+    display:grid;
+    grid-template-columns:52px 1fr auto 1fr;
+    align-items:center;
+    gap:10px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 12px;
+    margin-bottom:7px;
+    box-shadow:var(--shadow);
+  }
+  .match-row.dim{ opacity:.28; }
+  .match-row{ cursor:default; }
+  .match-row.editable{ cursor:pointer; }
+  .match-row.editable:hover{ border-color:var(--court); }
+  .match-row.done{ background:var(--court-soft); border-color:var(--court); }
+  .m-time{
+    font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-dim);
+    display:flex; flex-direction:column; gap:2px;
+  }
+  .m-time .code{ font-size:10.5px; color:var(--court); font-weight:600; }
+  .m-team{ font-size:13.5px; font-weight:500; }
+  .m-team.hi{ background:var(--shuttle-soft); border-radius:5px; padding:0 3px; box-shadow:0 0 0 1px var(--shuttle) inset; }
+  .m-team.pending{ color:var(--ink-dim); font-style:italic; font-weight:400; }
+  .m-team.winner{ font-weight:700; }
+  .m-vs{
+    font-family:"Big Shoulders Display",sans-serif; font-weight:700; color:var(--ink-dim); font-size:12px;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+  }
+  .m-score{ font-family:"IBM Plex Mono",monospace; font-size:14px; color:var(--court-strong); font-weight:600; }
+  .edit-panel{
+    grid-column:1 / -1; margin-top:8px; padding-top:10px; border-top:1px dashed var(--line);
+    display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px;
+  }
+  .edit-panel label{ font-size:10.5px; color:var(--ink-dim); display:block; margin-bottom:3px; text-transform:uppercase; letter-spacing:.05em; }
+  .edit-panel input[type=number]{
+    width:56px; font:inherit; font-size:14px; padding:6px 7px; border-radius:7px; border:1px solid var(--line);
+    background:var(--paper); color:var(--ink); font-family:"IBM Plex Mono",monospace;
+  }
+  .edit-panel .field{ display:flex; flex-direction:column; }
+  .edit-panel button{
+    font:inherit; font-size:12.5px; font-weight:700; padding:7px 13px; border-radius:7px; border:1px solid transparent;
+    cursor:pointer; font-family:"Big Shoulders Display",sans-serif; text-transform:uppercase; letter-spacing:.03em;
+  }
+  .edit-panel .btn-save{ background:var(--court); color:#fff; }
+  .edit-panel .btn-wo{ background:transparent; color:var(--court-strong); border-color:var(--court); }
+  .edit-panel .btn-clear{ background:transparent; color:var(--ink-dim); border-color:var(--line); }
+  .edit-panel .edit-msg{ font-size:11.5px; color:var(--shuttle); flex-basis:100%; }
+  .badge{
+    font-size:9.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    padding:2px 6px; border-radius:5px; white-space:nowrap;
+  }
+  .badge.b-round{ background:var(--court-soft); color:var(--court-strong); }
+  .badge.b-final{ background:var(--shuttle-soft); color:var(--shuttle); border:1px solid var(--shuttle); }
+  .cat-row{ display:flex; gap:6px; align-items:center; margin-bottom:2px; }
+  .cat-tag{ font-size:11px; color:var(--ink-dim); font-weight:600; }
+
+  /* ---------- bagan ---------- */
+  .cat-tabs{ display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap; }
+  .cat-tab{
+    font-family:"Big Shoulders Display",sans-serif; font-weight:700; text-transform:uppercase;
+    font-size:13.5px; letter-spacing:.02em; cursor:pointer;
+    padding:7px 14px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink-dim);
+  }
+  .cat-tab[aria-selected="true"]{ background:var(--court); border-color:var(--court); color:#fff; }
+
+  .bracket-scroll{
+    overflow-x:auto; overflow-y:hidden; padding:6px 2px 18px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .bracket{ display:flex; align-items:center; min-width:max-content; }
+  .round-col{ display:flex; flex-direction:column; justify-content:space-around; min-width:216px; }
+  .round-col + .round-col{ margin-left:26px; }
+  .round-label{
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.1em;
+    color:var(--ink-dim); text-align:center; margin-bottom:10px;
+  }
+  .node{ position:relative; padding:8px 0; }
+  .pairbox{
+    border:1px solid var(--line); border-radius:9px; background:var(--surface); box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .slot{
+    display:flex; align-items:center; justify-content:space-between; gap:6px;
+    padding:7px 9px; font-size:12.5px; font-weight:500;
+    border-bottom:1px solid var(--line);
+  }
+  .slot:last-child{ border-bottom:0; }
+  .slot .name{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .slot.bye .name{ color:var(--ink-dim); font-style:italic; font-weight:400; }
+  .slot.hi{ background:var(--shuttle-soft); }
+  .slot .who{ font-family:"IBM Plex Mono",monospace; font-size:9px; color:var(--court); flex-shrink:0; }
+  .code-tag{
+    position:absolute; top:-2px; left:8px; transform:translateY(-100%);
+    font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--ink-dim);
+  }
+  /* connectors: a short stub toward the next round is enough here —
+     byes make exact tree-line geometry misleading, so we keep it simple */
+  .node::after{
+    content:""; position:absolute; right:-13px; top:50%; width:13px; height:1px; background:var(--line);
+  }
+  .node.no-connector::after{ display:none; }
+
+  .final-block{ display:flex; align-items:center; flex-shrink:0; margin-left:26px; }
+  .champion{
+    border:2px solid var(--shuttle); background:var(--shuttle-soft); border-radius:10px; padding:12px 16px;
+    min-width:190px; text-align:center;
+  }
+  .champion .label{ font-family:"Big Shoulders Display",sans-serif; font-weight:800; font-size:13px; color:var(--shuttle); text-transform:uppercase; letter-spacing:.05em; }
+  .champion .name{ font-size:14px; font-weight:600; margin-top:4px; }
+
+  .third-place{
+    margin:22px 2px 4px; padding:12px 14px; border:1px dashed var(--line); border-radius:10px;
+    background:var(--surface-dim); max-width:460px;
+  }
+  .third-place .tp-label{ font-size:11px; color:var(--ink-dim); font-family:"IBM Plex Mono",monospace; text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px; }
+
+  .legend{ display:flex; flex-wrap:wrap; gap:14px; font-size:11.5px; color:var(--ink-dim); margin:4px 0 20px; }
+  .legend span{ display:inline-flex; align-items:center; gap:5px; }
+  .legend i{ width:10px; height:10px; border-radius:3px; display:inline-block; }
+
+  .empty-note{ font-size:13px; color:var(--ink-dim); padding:24px 0; text-align:center; }
+
+  footer.foot{
+    margin-top:34px; padding-top:14px; border-top:1px solid var(--line);
+    font-size:11.5px; color:var(--ink-dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;
+  }
+
+  @media (max-width:520px){
+    .match-row{ grid-template-columns:44px 1fr; grid-template-rows:auto auto; }
+    .m-vs{ display:none; }
+    .m-team.teamB{ grid-column:2; padding-left:14px; position:relative; }
+    .m-team.teamB::before{ content:"vs"; position:absolute; left:0; top:0; font-size:9px; color:var(--ink-dim); font-family:"Big Shoulders Display",sans-serif; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow"><span class="dot"></span>Jalin Sportify Fest 2026 &middot; Badminton</div>
+    <h1 class="title">Jadwal &amp; <em>Bagan</em> Badminton</h1>
+    <p class="subtitle">Sistem gugur (single elimination) per kategori &middot; 6 pertandingan/hari, 20 menit/pertandingan, pukul 18.00&ndash;20.00 &middot; diambil 3 terbaik tiap kategori.</p>
+    <div class="stat-row">
+      <div class="stat-chip"><b>43</b> pertandingan</div>
+      <div class="stat-chip"><b>8</b> hari main</div>
+      <div class="stat-chip"><b>3</b> kategori</div>
+      <div class="stat-chip"><b>45</b> pendaftaran (PIC Jepri)</div>
+      <span class="mode-chip" id="mode-chip"><span class="dotm"></span>Memuat status…</span>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="tabs" role="tablist">
+      <button class="tab-btn" id="tabbtn-jadwal" role="tab" aria-selected="true">Jadwal</button>
+      <button class="tab-btn" id="tabbtn-bagan" role="tab" aria-selected="false">Bagan</button>
+    </div>
+    <div class="searchbox">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="Cari nama tim atau kode (mis. GP-K3)…" autocomplete="off">
+    </div>
+  </div>
+
+  <section id="view-jadwal" class="view active">
+    <div class="chipset" id="cat-filter" style="margin-bottom:14px;">
+      <button class="chip" data-cat="all" aria-pressed="true">Semua kategori</button>
+      <button class="chip" data-cat="Ganda Putra" aria-pressed="false">Ganda Putra</button>
+      <button class="chip" data-cat="Ganda Putri" aria-pressed="false">Ganda Putri</button>
+      <button class="chip" data-cat="Ganda Campuran" aria-pressed="false">Ganda Campuran</button>
+    </div>
+    <div id="jadwal-days"></div>
+  </section>
+
+  <section id="view-bagan" class="view">
+    <div class="cat-tabs" role="tablist">
+      <button class="cat-tab" data-cat="Ganda Putra" aria-selected="true">Ganda Putra</button>
+      <button class="cat-tab" data-cat="Ganda Putri" aria-selected="false">Ganda Putri</button>
+      <button class="cat-tab" data-cat="Ganda Campuran" aria-selected="false">Ganda Campuran</button>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--court-soft);box-shadow:0 0 0 1px var(--court) inset;"></i>Tim terisi</span>
+      <span><i style="background:var(--surface);box-shadow:0 0 0 1px var(--line) inset;"></i>Menunggu pemenang</span>
+      <span><i style="background:var(--shuttle-soft);box-shadow:0 0 0 1px var(--shuttle) inset;"></i>Cocok pencarian</span>
+    </div>
+    <div class="bracket-scroll"><div id="bracket-holder"></div></div>
+  </section>
+
+  <footer class="foot">
+    <span>Sumber: REGISTRASI JALIN SPORTIFY FEST 2026.xlsx &middot; sheet Jadwal &amp; Bagan Badminton</span>
+    <span>PIC Badminton: Jepri</span>
+  </footer>
+</div>
+
+<script type="module">
+  // ---- Firebase backend --------------------------------------------
+  // Public read (anyone can view live scores), write restricted to one
+  // admin email by the Firestore security rules (see the rules text
+  // handed over alongside this file — this client-side check is only
+  // for the UI, the real gate lives server-side).
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import {
+    getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+  import {
+    getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot
+  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAZiJ5X-rusn9jy15VA9wJnxZ4b147H0Ak",
+    authDomain: "sportify-fest.firebaseapp.com",
+    projectId: "sportify-fest",
+    storageBucket: "sportify-fest.firebasestorage.app",
+    messagingSenderId: "29924570559",
+    appId: "1:29924570559:web:a3b4b82ecbfdf811b61d0a",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const dbFs = getFirestore(app);
+  const provider = new GoogleAuthProvider();
+
+  window.fbSignIn = () => signInWithPopup(auth, provider);
+  window.fbSignOut = () => signOut(auth);
+  window.fbOnAuthChange = (cb) => onAuthStateChanged(auth, cb);
+  window.fbOnResults = (cb) => onSnapshot(collection(dbFs, 'results'), snap => {
+    const map = {};
+    snap.forEach(d => { map[d.id] = d.data(); });
+    cb(map);
+  }, (err) => console.warn('Firestore listen error', err));
+  window.fbSaveResult = (kode, data) => setDoc(doc(dbFs, 'results', kode), data);
+  window.fbClearResult = (kode) => deleteDoc(doc(dbFs, 'results', kode));
+
+  // This module script is deferred (runs after the classic script below
+  // has already executed and defined window.initDb), so wiring is done
+  // and it's safe to kick things off now.
+  window.initDb();
+</script>
+
+<script>
+/* ============ DATA ============ */
+// Jadwal: every scheduled match, in play order.
+const JADWAL = [
+{no:1,hari:'Hari 1',jam:'18.00–18.20',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K1',a:'Reigi Ahmad Fadilah & Ì Komang Try Raditya',b:'Muhammad Pasca Ramadhan & Randy purba'},
+{no:2,hari:'Hari 1',jam:'18.20–18.40',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K2',a:'Dwi Saputro & Wahyu Sumarsono',b:'Faiz N. & Arief Dharmawan'},
+{no:3,hari:'Hari 1',jam:'18.40–19.00',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K3',a:'Juan Maruli & Ghuvron Al Husni',b:'Putra Septa Anjaya & Historida Aji Bagaskara'},
+{no:4,hari:'Hari 1',jam:'19.00–19.20',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K4',a:'Ardiansyah & Oktadika',b:'Mochamad faisal & Ahmad rizki'},
+{no:5,hari:'Hari 1',jam:'19.20–19.40',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K5',a:'Kiki Aditiya & Maman',b:'Helmi Sudiro & Haryo Paminto A.'},
+{no:6,hari:'Hari 1',jam:'19.40–20.00',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K6',a:'Asdy R & Yohanes Suryo',b:'Dedi Setiawan & Phingay Ramadhan'},
+{no:7,hari:'Hari 2',jam:'18.00–18.20',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K1',a:'Faiz Nashiruddin & Karina Kemala Citra',b:'Shiena Aprisilia V A & Bobby Rizal C'},
+{no:8,hari:'Hari 2',jam:'18.20–18.40',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K2',a:'Historida Bagas & Kartika Amareta',b:'Agung Triyadi & Yasinthr Puteri Larasati'},
+{no:9,hari:'Hari 2',jam:'18.40–19.00',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K3',a:'Wandaniel & Clara',b:'Safri Adi Pribadi & Anita Zuliani'},
+{no:10,hari:'Hari 2',jam:'19.00–19.20',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K4',a:'Desiyanti Pratiwi & Maman Nurbagiyo',b:'Slamet Kurniawan & Anniaa Aprilia'},
+{no:11,hari:'Hari 2',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K5',a:'Kiki Aditya & Tina',b:'dwi saputro & Erika Sihombing'},
+{no:12,hari:'Hari 2',jam:'19.40–20.00',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K6',a:'Riska Amira & Jepri',b:'Firda Fujianti & Wahyudi Kurnia'},
+{no:13,hari:'Hari 3',jam:'18.00–18.20',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K1',a:'Kharisma Aprilia Lestari & Annisa Aprilia Pusparani',b:'Wirda Kurnia Sari & Rizka Fajrin'},
+{no:14,hari:'Hari 3',jam:'18.20–18.40',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K2',a:'Firda nur annisa fujianti & Putri wahyuriani',b:'Desiyanti Pratiwi & Erika Sihombing'},
+{no:15,hari:'Hari 3',jam:'18.40–19.00',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K3',a:'Novi Susanti & Ratih',b:'Riska Amira & Yashinta Larasati'},
+{no:16,hari:'Hari 3',jam:'19.00–19.20',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-1',a:'Pemenang GP-K1',b:'Bobby R Chaniago & Wahyudi Kurnia'},
+{no:17,hari:'Hari 3',jam:'19.20–19.40',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-2',a:'Pemenang GP-K2',b:'Safri Adi Pribadi & Slamet'},
+{no:18,hari:'Hari 3',jam:'19.40–20.00',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-3',a:'Pemenang GP-K3',b:'Andi Rusandi & Agus Sentosa'},
+{no:19,hari:'Hari 4',jam:'18.00–18.20',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-4',a:'Pemenang GP-K4',b:'Agung Triyadi & Jepri'},
+{no:20,hari:'Hari 4',jam:'18.20–18.40',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-5',a:'Pemenang GP-K5',b:'Guntur Masputra Jr & Rudianto'},
+{no:21,hari:'Hari 4',jam:'18.40–19.00',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-6',a:'Pemenang GP-K6',b:'Arief Rachmadi & Ricky Eko Wahyudi'},
+{no:22,hari:'Hari 4',jam:'19.00–19.20',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-7',a:'Wandaniel & Tris antani',b:'Muhammad Firdaus & Bimo Pramulaksono'},
+{no:23,hari:'Hari 4',jam:'19.20–19.40',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-8',a:'Muhammad Fajar Nugraha & Mochammad Rizky Dhermawan',b:'Roni S & Rezky Pratomo'},
+{no:24,hari:'Hari 4',jam:'19.40–20.00',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-1',a:'Pemenang GC-K1',b:'Pemenang GC-K2'},
+{no:25,hari:'Hari 5',jam:'18.00–18.20',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-2',a:'Pemenang GC-K3',b:'Pemenang GC-K4'},
+{no:26,hari:'Hari 5',jam:'18.20–18.40',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-3',a:'Pemenang GC-K5',b:'Pemenang GC-K6'},
+{no:27,hari:'Hari 5',jam:'18.40–19.00',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-4',a:'Kharisma Aprilia Lestari & Andi Rusandi',b:'Wirda Kurnia Sari & Adi Susatyo Prabowo'},
+{no:28,hari:'Hari 5',jam:'19.00–19.20',kat:'Ganda Putri',babak:'Semifinal',kode:'GPi-SF-1',a:'Pemenang GPi-K1',b:'Pemenang GPi-K2'},
+{no:29,hari:'Hari 5',jam:'19.20–19.40',kat:'Ganda Putri',babak:'Semifinal',kode:'GPi-SF-2',a:'Pemenang GPi-K3',b:'Shiena Aprisilia V A & Anita Zuliani'},
+{no:30,hari:'Hari 5',jam:'19.40–20.00',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-1',a:'Pemenang GP-16B-1',b:'Pemenang GP-16B-2'},
+{no:31,hari:'Hari 6',jam:'18.00–18.20',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-2',a:'Pemenang GP-16B-3',b:'Pemenang GP-16B-4'},
+{no:32,hari:'Hari 6',jam:'18.20–18.40',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-3',a:'Pemenang GP-16B-5',b:'Pemenang GP-16B-6'},
+{no:33,hari:'Hari 6',jam:'18.40–19.00',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-4',a:'Pemenang GP-16B-7',b:'Pemenang GP-16B-8'},
+{no:34,hari:'Hari 6',jam:'19.00–19.20',kat:'Ganda Campuran',babak:'Semifinal',kode:'GC-SF-1',a:'Pemenang GC-8B-1',b:'Pemenang GC-8B-2'},
+{no:35,hari:'Hari 6',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'Semifinal',kode:'GC-SF-2',a:'Pemenang GC-8B-3',b:'Pemenang GC-8B-4'},
+{no:36,hari:'Hari 6',jam:'19.40–20.00',kat:'Ganda Putri',babak:'Perebutan Juara 3',kode:'GPi-3RD',a:'Kalah GPi-SF-1',b:'Kalah GPi-SF-2'},
+{no:37,hari:'Hari 7',jam:'18.00–18.20',kat:'Ganda Putri',babak:'Final',kode:'GPi-F',a:'Pemenang GPi-SF-1',b:'Pemenang GPi-SF-2'},
+{no:38,hari:'Hari 7',jam:'18.20–18.40',kat:'Ganda Putra',babak:'Semifinal',kode:'GP-SF-1',a:'Pemenang GP-8B-1',b:'Pemenang GP-8B-2'},
+{no:39,hari:'Hari 7',jam:'18.40–19.00',kat:'Ganda Putra',babak:'Semifinal',kode:'GP-SF-2',a:'Pemenang GP-8B-3',b:'Pemenang GP-8B-4'},
+{no:40,hari:'Hari 7',jam:'19.00–19.20',kat:'Ganda Campuran',babak:'Perebutan Juara 3',kode:'GC-3RD',a:'Kalah GC-SF-1',b:'Kalah GC-SF-2'},
+{no:41,hari:'Hari 7',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'Final',kode:'GC-F',a:'Pemenang GC-SF-1',b:'Pemenang GC-SF-2'},
+{no:42,hari:'Hari 7',jam:'19.40–20.00',kat:'Ganda Putra',babak:'Perebutan Juara 3',kode:'GP-3RD',a:'Kalah GP-SF-1',b:'Kalah GP-SF-2'},
+{no:43,hari:'Hari 8',jam:'18.00–18.20',kat:'Ganda Putra',babak:'Final',kode:'GP-F',a:'Pemenang GP-SF-1',b:'Pemenang GP-SF-2'},
+];
+
+// Bracket: recursive tree per category. A node is either
+//  {t:'team', name}  — a real team, already known (includes byes)
+//  {t:'match', code, kids:[node,node]} — a match whose slots feed from two nodes
+function team(name){ return {t:'team', name}; }
+function match(code, round, k1, k2){ return {t:'match', code, round, kids:[k1,k2]}; }
+
+const BRACKETS = {
+  'Ganda Putra': {
+    rounds: ['Kualifikasi','16 Besar','8 Besar','Semifinal','Final'],
+    final: match('GP-F','Final',
+      match('GP-SF-1','Semifinal',
+        match('GP-8B-1','8 Besar',
+          match('GP-16B-1','16 Besar', match('GP-K1','Kualifikasi', team('Reigi Ahmad Fadilah & Ì Komang Try Raditya'), team('Muhammad Pasca Ramadhan & Randy purba')), team('Bobby R Chaniago & Wahyudi Kurnia')),
+          match('GP-16B-2','16 Besar', match('GP-K2','Kualifikasi', team('Dwi Saputro & Wahyu Sumarsono'), team('Faiz N. & Arief Dharmawan')), team('Safri Adi Pribadi & Slamet'))
+        ),
+        match('GP-8B-2','8 Besar',
+          match('GP-16B-3','16 Besar', match('GP-K3','Kualifikasi', team('Juan Maruli & Ghuvron Al Husni'), team('Putra Septa Anjaya & Historida Aji Bagaskara')), team('Andi Rusandi & Agus Sentosa')),
+          match('GP-16B-4','16 Besar', match('GP-K4','Kualifikasi', team('Ardiansyah & Oktadika'), team('Mochamad faisal & Ahmad rizki')), team('Agung Triyadi & Jepri'))
+        )
+      ),
+      match('GP-SF-2','Semifinal',
+        match('GP-8B-3','8 Besar',
+          match('GP-16B-5','16 Besar', match('GP-K5','Kualifikasi', team('Kiki Aditiya & Maman'), team('Helmi Sudiro & Haryo Paminto A.')), team('Guntur Masputra Jr & Rudianto')),
+          match('GP-16B-6','16 Besar', match('GP-K6','Kualifikasi', team('Asdy R & Yohanes Suryo'), team('Dedi Setiawan & Phingay Ramadhan')), team('Arief Rachmadi & Ricky Eko Wahyudi'))
+        ),
+        match('GP-8B-4','8 Besar',
+          match('GP-16B-7','16 Besar', team('Wandaniel & Tris antani'), team('Muhammad Firdaus & Bimo Pramulaksono')),
+          match('GP-16B-8','16 Besar', team('Muhammad Fajar Nugraha & Mochammad Rizky Dhermawan'), team('Roni S & Rezky Pratomo'))
+        )
+      )
+    ),
+    thirdCode:'GP-3RD', sfCodes:['GP-SF-1','GP-SF-2']
+  },
+  'Ganda Putri': {
+    rounds: ['Kualifikasi','Semifinal','Final'],
+    final: match('GPi-F','Final',
+      match('GPi-SF-1','Semifinal', match('GPi-K1','Kualifikasi', team('Kharisma Aprilia Lestari & Annisa Aprilia Pusparani'), team('Wirda Kurnia Sari & Rizka Fajrin')), match('GPi-K2','Kualifikasi', team('Firda nur annisa fujianti & Putri wahyuriani'), team('Desiyanti Pratiwi & Erika Sihombing'))),
+      match('GPi-SF-2','Semifinal', match('GPi-K3','Kualifikasi', team('Novi Susanti & Ratih'), team('Riska Amira & Yashinta Larasati')), team('Shiena Aprisilia V A & Anita Zuliani'))
+    ),
+    thirdCode:'GPi-3RD', sfCodes:['GPi-SF-1','GPi-SF-2']
+  },
+  'Ganda Campuran': {
+    rounds: ['Kualifikasi','8 Besar','Semifinal','Final'],
+    final: match('GC-F','Final',
+      match('GC-SF-1','Semifinal',
+        match('GC-8B-1','8 Besar', match('GC-K1','Kualifikasi', team('Faiz Nashiruddin & Karina Kemala Citra'), team('Shiena Aprisilia V A & Bobby Rizal C')), match('GC-K2','Kualifikasi', team('Historida Bagas & Kartika Amareta'), team('Agung Triyadi & Yasinthr Puteri Larasati'))),
+        match('GC-8B-2','8 Besar', match('GC-K3','Kualifikasi', team('Wandaniel & Clara'), team('Safri Adi Pribadi & Anita Zuliani')), match('GC-K4','Kualifikasi', team('Desiyanti Pratiwi & Maman Nurbagiyo'), team('Slamet Kurniawan & Anniaa Aprilia')))
+      ),
+      match('GC-SF-2','Semifinal',
+        match('GC-8B-3','8 Besar', match('GC-K5','Kualifikasi', team('Kiki Aditya & Tina'), team('dwi saputro & Erika Sihombing')), match('GC-K6','Kualifikasi', team('Riska Amira & Jepri'), team('Firda Fujianti & Wahyudi Kurnia'))),
+        match('GC-8B-4','8 Besar', team('Kharisma Aprilia Lestari & Andi Rusandi'), team('Wirda Kurnia Sari & Adi Susatyo Prabowo'))
+      )
+    ),
+    thirdCode:'GC-3RD', sfCodes:['GC-SF-1','GC-SF-2']
+  }
+};
+
+const CODE_INFO = {};
+JADWAL.forEach(m=>{ CODE_INFO[m.kode] = m; });
+
+/* ============ helpers ============ */
+function norm(s){ return (s||'').toLowerCase(); }
+
+/* ============ live results (Firebase) ============ */
+// RESULTS[kode] = { scoreA, scoreB, winnerSlot: 'A'|'B', updatedAt }
+const RESULTS = {};
+let canEdit = false;
+let currentUser = null;
+const ADMIN_EMAIL = 'userbankdev@gmail.com';
+
+// Resolves a schedule placeholder ("Pemenang GP-K1", "Kalah GP-SF-2") down
+// to a real team name once the referenced match has a winner recorded —
+// mirrors the source sheet's own note: "babak berikutnya terisi otomatis
+// setelah kolom Pemenang diisi."
+function resolveText(raw, depth){
+  depth = depth || 0;
+  if(depth > 8 || !raw) return raw;
+  let m = raw.match(/^Pemenang (.+)$/);
+  if(m){
+    const info = CODE_INFO[m[1]], res = RESULTS[m[1]];
+    if(info && res && res.winnerSlot){
+      return resolveText(res.winnerSlot==='A' ? info.a : info.b, depth+1);
+    }
+    return raw;
+  }
+  m = raw.match(/^Kalah (.+)$/);
+  if(m){
+    const info = CODE_INFO[m[1]], res = RESULTS[m[1]];
+    if(info && res && res.winnerSlot){
+      return resolveText(res.winnerSlot==='A' ? info.b : info.a, depth+1);
+    }
+    return raw;
+  }
+  return raw;
+}
+function isPending(raw){ return /^(Pemenang|Kalah) /.test(raw) && resolveText(raw) === raw; }
+
+function updateModeChip(){
+  const chip = document.getElementById('mode-chip');
+  chip.className = 'mode-chip' + (canEdit ? ' admin' : '');
+  const label = canEdit
+    ? 'Mode admin — bisa isi skor'
+    : (currentUser ? `Login sebagai ${currentUser.email} (bukan admin)` : 'Mode lihat saja');
+  const btn = currentUser
+    ? `<button type="button" id="auth-btn" class="auth-btn">Logout</button>`
+    : `<button type="button" id="auth-btn" class="auth-btn">Login admin</button>`;
+  chip.innerHTML = `<span class="dotm"></span>${label} ${btn}`;
+  document.getElementById('auth-btn').addEventListener('click', currentUser ? doLogout : doLogin);
+}
+
+async function doLogin(){
+  try{ await window.fbSignIn(); }
+  catch(e){ console.warn('login gagal', e); }
+}
+async function doLogout(){
+  try{ await window.fbSignOut(); }
+  catch(e){ console.warn('logout gagal', e); }
+}
+
+async function saveResult(kode, scoreA, scoreB, msgEl, forcedWinner){
+  if(!canEdit) return;
+  const hasA = scoreA !== '' && scoreA !== undefined;
+  const hasB = scoreB !== '' && scoreB !== undefined;
+  const a = hasA ? Number(scoreA) : null;
+  const b = hasB ? Number(scoreB) : null;
+  let winnerSlot = forcedWinner || null;
+  if(!winnerSlot){
+    if(a===null || b===null || Number.isNaN(a) || Number.isNaN(b) || a===b){
+      if(msgEl) msgEl.textContent = 'Isi skor A dan B yang valid (tidak boleh sama/kosong), atau pakai tombol "menang" untuk WO.';
+      return;
+    }
+    winnerSlot = a>b ? 'A' : 'B';
+  }
+  try{
+    await window.fbSaveResult(kode, { scoreA:a, scoreB:b, winnerSlot, updatedAt: new Date().toISOString() });
+  }catch(e){
+    if(msgEl) msgEl.textContent = 'Gagal menyimpan (cek koneksi, atau kamu bukan admin) — ' + (e && e.code ? e.code : '');
+  }
+}
+async function clearResult(kode, msgEl){
+  if(!canEdit) return;
+  try{ await window.fbClearResult(kode); }
+  catch(e){ if(msgEl) msgEl.textContent = 'Gagal menghapus, coba lagi.'; }
+}
+
+function initDb(){
+  window.fbOnAuthChange(user=>{
+    currentUser = user;
+    canEdit = !!(user && user.email === ADMIN_EMAIL);
+    updateModeChip();
+    renderJadwal();
+  });
+  window.fbOnResults(map=>{
+    Object.keys(RESULTS).forEach(k=>delete RESULTS[k]);
+    Object.assign(RESULTS, map);
+    renderJadwal();
+    renderBracket();
+  });
+}
+
+/* ============ render: jadwal ============ */
+const jadwalHolder = document.getElementById('jadwal-days');
+let activeCat = 'all';
+let query = '';
+
+function renderJadwal(){
+  const days = [...new Set(JADWAL.map(m=>m.hari))];
+  jadwalHolder.innerHTML = '';
+  days.forEach(day=>{
+    const rows = JADWAL.filter(m=>m.hari===day);
+    const block = document.createElement('div');
+    block.className = 'day-block';
+    const visibleCount = rows.filter(passesFilter).length;
+    block.innerHTML = `<div class="day-head"><h2>${day}</h2><span class="count">${visibleCount}/${rows.length} pertandingan tampil</span></div>`;
+    rows.forEach(m=>{
+      const show = passesFilter(m);
+      const res = RESULTS[m.kode];
+      const nameA = resolveText(m.a), nameB = resolveText(m.b);
+      const row = document.createElement('div');
+      row.className = 'match-row' + (show ? '' : ' dim') + (res ? ' done' : '') + (canEdit ? ' editable' : '');
+      const isFinal = m.babak === 'Final';
+      const aHi = query && norm(nameA).includes(query);
+      const bHi = query && norm(nameB).includes(query);
+      const aPend = isPending(m.a), bPend = isPending(m.b);
+      const hasScore = res && res.scoreA!==null && res.scoreA!==undefined && res.scoreB!==null && res.scoreB!==undefined;
+      const middle = res
+        ? (hasScore ? `<span class="m-score">${res.scoreA}–${res.scoreB}</span>` : `<span class="m-score">WO</span>`)
+        : `<span>VS</span>`;
+      row.innerHTML = `
+        <div class="m-time">${m.jam}<span class="code">${m.kode}</span></div>
+        <div class="m-team${aHi?' hi':''}${aPend?' pending':''}${res && res.winnerSlot==='A'?' winner':''}">${nameA}</div>
+        <div class="m-vs">
+          <span class="badge ${isFinal?'b-final':'b-round'}">${m.babak}</span>
+          ${middle}
+        </div>
+        <div class="m-team teamB${bHi?' hi':''}${bPend?' pending':''}${res && res.winnerSlot==='B'?' winner':''}">${nameB}</div>`;
+      if(canEdit){
+        const panel = document.createElement('div');
+        panel.className = 'edit-panel';
+        panel.hidden = true;
+        panel.innerHTML = `
+          <div class="field"><label>Skor A</label><input type="number" min="0" class="sc-a" value="${res && res.scoreA!==null && res.scoreA!==undefined?res.scoreA:''}"></div>
+          <div class="field"><label>Skor B</label><input type="number" min="0" class="sc-b" value="${res && res.scoreB!==null && res.scoreB!==undefined?res.scoreB:''}"></div>
+          <button type="button" class="btn-save">Simpan skor</button>
+          <button type="button" class="btn-wo btn-wo-a">A menang (WO)</button>
+          <button type="button" class="btn-wo btn-wo-b">B menang (WO)</button>
+          ${res ? '<button type="button" class="btn-clear">Hapus hasil</button>' : ''}
+          <span class="edit-msg"></span>`;
+        row.appendChild(panel);
+        row.addEventListener('click', (e)=>{
+          if(e.target.closest('.edit-panel')) return;
+          panel.hidden = !panel.hidden;
+        });
+        panel.querySelector('.btn-save').addEventListener('click', (e)=>{
+          e.stopPropagation();
+          const msgEl = panel.querySelector('.edit-msg'); msgEl.textContent = '';
+          saveResult(m.kode, panel.querySelector('.sc-a').value, panel.querySelector('.sc-b').value, msgEl);
+        });
+        panel.querySelector('.btn-wo-a').addEventListener('click', (e)=>{
+          e.stopPropagation();
+          const msgEl = panel.querySelector('.edit-msg'); msgEl.textContent = '';
+          saveResult(m.kode, panel.querySelector('.sc-a').value, panel.querySelector('.sc-b').value, msgEl, 'A');
+        });
+        panel.querySelector('.btn-wo-b').addEventListener('click', (e)=>{
+          e.stopPropagation();
+          const msgEl = panel.querySelector('.edit-msg'); msgEl.textContent = '';
+          saveResult(m.kode, panel.querySelector('.sc-a').value, panel.querySelector('.sc-b').value, msgEl, 'B');
+        });
+        const clearBtn = panel.querySelector('.btn-clear');
+        if(clearBtn) clearBtn.addEventListener('click', (e)=>{ e.stopPropagation(); clearResult(m.kode, panel.querySelector('.edit-msg')); });
+      }
+      block.appendChild(row);
+    });
+    jadwalHolder.appendChild(block);
+  });
+}
+
+function passesFilter(m){
+  const catOk = activeCat === 'all' || m.kat === activeCat;
+  const q = query;
+  const qOk = !q || norm(resolveText(m.a)).includes(q) || norm(resolveText(m.b)).includes(q) || norm(m.kode).includes(q) || norm(m.kat).includes(q);
+  return catOk && qOk;
+}
+
+/* ============ render: bagan ============ */
+const bracketHolder = document.getElementById('bracket-holder');
+let activeBracketCat = 'Ganda Putra';
+
+// Post-order walk: fully visits kid0's subtree, then kid1's, then itself.
+// This keeps every round's matches in true top-to-bottom bracket order
+// even though some branches skip a round (bye vs bye) and are shallower.
+function collectByRound(node, byRound){
+  if(node.t !== 'match') return;
+  collectByRound(node.kids[0], byRound);
+  collectByRound(node.kids[1], byRound);
+  (byRound[node.round] = byRound[node.round] || []).push(node);
+}
+
+function slotHtml(node, sideClass){
+  if(node.t==='team'){
+    const hi = query && norm(node.name).includes(query);
+    return `<div class="slot bye${hi?' hi':''}"><span class="name">${node.name}</span></div>`;
+  }
+  const info = CODE_INFO[node.code];
+  const raw = 'Pemenang ' + node.code;
+  const resolved = resolveText(raw);
+  const pending = resolved === raw;
+  const dayTag = info ? info.hari.replace('Hari ','H') : '';
+  const title = pending ? (info ? `Ditentukan di ${info.hari}, ${info.jam}` : node.code) : node.code;
+  const hi = query && !pending && norm(resolved).includes(query);
+  return `<div class="slot${pending?' bye':''}${hi?' hi':''}" title="${title}"><span class="name">${resolved}</span>${pending?`<span class="who">${dayTag}</span>`:''}</div>`;
+}
+
+function renderBracket(){
+  const cfg = BRACKETS[activeBracketCat];
+  const root = cfg.final;
+  const byRound = {};
+  collectByRound(root, byRound);
+  const roundOrder = cfg.rounds; // e.g. ['Kualifikasi','16 Besar','8 Besar','Semifinal','Final']
+
+  let html = '<div class="bracket">';
+  roundOrder.forEach(roundLabel=>{
+    const nodes = byRound[roundLabel] || [];
+    if(!nodes.length) return;
+    const isFinal = roundLabel === 'Final';
+    html += `<div class="round-col"><div class="round-label">${roundLabel}</div>`;
+    nodes.forEach(node=>{
+      html += `<div class="node${isFinal?' no-connector':''}">`;
+      html += `<div class="pairbox">`;
+      html += slotHtml(node.kids[0]);
+      html += slotHtml(node.kids[1]);
+      html += `</div></div>`;
+    });
+    html += `</div>`;
+  });
+  const champName = resolveText('Pemenang ' + root.code);
+  html += `<div class="final-block"><div class="champion"><div class="label">Juara 1</div><div class="name">${champName}</div></div></div>`;
+  html += '</div>'; // .bracket
+
+  bracketHolder.innerHTML = html;
+
+  // third place box, appended after
+  const tpA = resolveText('Kalah '+cfg.sfCodes[0]), tpB = resolveText('Kalah '+cfg.sfCodes[1]);
+  const tpARes = RESULTS[cfg.thirdCode];
+  const tp = document.createElement('div');
+  tp.className = 'third-place';
+  tp.innerHTML = `<div class="tp-label">Perebutan Juara 3 — ${cfg.thirdCode}</div>
+    <div class="pairbox" style="max-width:420px;">
+      <div class="slot bye${tpARes && tpARes.winnerSlot==='A'?' hi':''}"><span class="name">${tpA}</span></div>
+      <div class="slot bye${tpARes && tpARes.winnerSlot==='B'?' hi':''}"><span class="name">${tpB}</span></div>
+    </div>`;
+  bracketHolder.appendChild(tp);
+}
+
+/* ============ tabs & controls ============ */
+const tabJadwal = document.getElementById('tabbtn-jadwal');
+const tabBagan = document.getElementById('tabbtn-bagan');
+const viewJadwal = document.getElementById('view-jadwal');
+const viewBagan = document.getElementById('view-bagan');
+
+tabJadwal.addEventListener('click', ()=>{
+  tabJadwal.setAttribute('aria-selected','true');
+  tabBagan.setAttribute('aria-selected','false');
+  viewJadwal.classList.add('active');
+  viewBagan.classList.remove('active');
+});
+tabBagan.addEventListener('click', ()=>{
+  tabBagan.setAttribute('aria-selected','true');
+  tabJadwal.setAttribute('aria-selected','false');
+  viewBagan.classList.add('active');
+  viewJadwal.classList.remove('active');
+});
+
+document.querySelectorAll('#cat-filter .chip').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#cat-filter .chip').forEach(b=>b.setAttribute('aria-pressed','false'));
+    btn.setAttribute('aria-pressed','true');
+    activeCat = btn.dataset.cat;
+    renderJadwal();
+  });
+});
+
+document.querySelectorAll('.cat-tab').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.cat-tab').forEach(b=>b.setAttribute('aria-selected','false'));
+    btn.setAttribute('aria-selected','true');
+    activeBracketCat = btn.dataset.cat;
+    renderBracket();
+  });
+});
+
+document.getElementById('search').addEventListener('input', (e)=>{
+  query = norm(e.target.value.trim());
+  renderJadwal();
+  renderBracket();
+});
+
+renderJadwal();
+renderBracket();
+// initDb() is called by the Firebase module script above once it has
+// finished wiring window.fbOnAuthChange / window.fbOnResults — module
+// scripts execute after this classic script, so calling it from here
+// would run before those exist.
+</script>
