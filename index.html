@@ -318,10 +318,10 @@
   <header class="top">
     <div class="eyebrow"><span class="dot"></span>Jalin Sportify Fest 2026 &middot; Badminton</div>
     <h1 class="title">Jadwal &amp; <em>Bagan</em> Badminton</h1>
-    <p class="subtitle">Sistem gugur (single elimination) per kategori &middot; 6 pertandingan/hari, 20 menit/pertandingan, pukul 18.00&ndash;20.00 &middot; diambil 3 terbaik tiap kategori.</p>
+    <p class="subtitle">Sistem gugur (single elimination) per kategori &middot; Kualifikasi&ndash;8 Besar 20 menit/pertandingan dengan jeda 20 menit tiap hari, Semifinal &amp; Final masing-masing dipadatkan dalam 1 hari &middot; 30 menit/pertandingan, mulai pukul 18.00 &middot; diambil 3 terbaik tiap kategori.</p>
     <div class="stat-row">
-      <div class="stat-chip"><b>43</b> pertandingan</div>
-      <div class="stat-chip"><b>8</b> hari main</div>
+      <div class="stat-chip"><b>44</b> pertandingan</div>
+      <div class="stat-chip"><b>10</b> hari main</div>
       <div class="stat-chip"><b>3</b> kategori</div>
       <div class="stat-chip"><b>45</b> pendaftaran (PIC Jepri)</div>
       <span class="mode-chip" id="mode-chip"><span class="dotm"></span>Memuat status…</span>
@@ -418,49 +418,50 @@
 /* ============ DATA ============ */
 // Jadwal: every scheduled match, in play order.
 const JADWAL = [
-{no:1,hari:'Hari 1',jam:'18.00–18.20',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K1',a:'Reigi Ahmad Fadilah & Ì Komang Try Raditya',b:'Muhammad Pasca Ramadhan & Randy purba'},
-{no:2,hari:'Hari 1',jam:'18.20–18.40',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K2',a:'Dwi Saputro & Wahyu Sumarsono',b:'Faiz N. & Arief Dharmawan'},
-{no:3,hari:'Hari 1',jam:'18.40–19.00',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K3',a:'Juan Maruli & Ghuvron Al Husni',b:'Putra Septa Anjaya & Historida Aji Bagaskara'},
-{no:4,hari:'Hari 1',jam:'19.00–19.20',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K4',a:'Ardiansyah & Oktadika',b:'Mochamad faisal & Ahmad rizki'},
-{no:5,hari:'Hari 1',jam:'19.20–19.40',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K5',a:'Kiki Aditiya & Maman',b:'Helmi Sudiro & Haryo Paminto A.'},
-{no:6,hari:'Hari 1',jam:'19.40–20.00',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K6',a:'Asdy R & Yohanes Suryo',b:'Dedi Setiawan & Phingay Ramadhan'},
-{no:7,hari:'Hari 2',jam:'18.00–18.20',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K1',a:'Faiz Nashiruddin & Karina Kemala Citra',b:'Shiena Aprisilia V A & Bobby Rizal C'},
-{no:8,hari:'Hari 2',jam:'18.20–18.40',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K2',a:'Historida Bagas & Kartika Amareta',b:'Agung Triyadi & Yasinthr Puteri Larasati'},
-{no:9,hari:'Hari 2',jam:'18.40–19.00',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K3',a:'Wandaniel & Clara',b:'Safri Adi Pribadi & Anita Zuliani'},
-{no:10,hari:'Hari 2',jam:'19.00–19.20',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K4',a:'Desiyanti Pratiwi & Maman Nurbagiyo',b:'Slamet Kurniawan & Anniaa Aprilia'},
-{no:11,hari:'Hari 2',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K5',a:'Kiki Aditya & Tina',b:'dwi saputro & Erika Sihombing'},
-{no:12,hari:'Hari 2',jam:'19.40–20.00',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K6',a:'Riska Amira & Jepri',b:'Firda Fujianti & Wahyudi Kurnia'},
-{no:13,hari:'Hari 3',jam:'18.00–18.20',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K1',a:'Kharisma Aprilia Lestari & Annisa Aprilia Pusparani',b:'Wirda Kurnia Sari & Rizka Fajrin'},
-{no:14,hari:'Hari 3',jam:'18.20–18.40',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K2',a:'Firda nur annisa fujianti & Putri wahyuriani',b:'Desiyanti Pratiwi & Erika Sihombing'},
-{no:15,hari:'Hari 3',jam:'18.40–19.00',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K3',a:'Novi Susanti & Ratih',b:'Riska Amira & Yashinta Larasati'},
-{no:16,hari:'Hari 3',jam:'19.00–19.20',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-1',a:'Pemenang GP-K1',b:'Bobby R Chaniago & Wahyudi Kurnia'},
-{no:17,hari:'Hari 3',jam:'19.20–19.40',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-2',a:'Pemenang GP-K2',b:'Safri Adi Pribadi & Slamet'},
-{no:18,hari:'Hari 3',jam:'19.40–20.00',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-3',a:'Pemenang GP-K3',b:'Andi Rusandi & Agus Sentosa'},
-{no:19,hari:'Hari 4',jam:'18.00–18.20',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-4',a:'Pemenang GP-K4',b:'Agung Triyadi & Jepri'},
-{no:20,hari:'Hari 4',jam:'18.20–18.40',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-5',a:'Pemenang GP-K5',b:'Guntur Masputra Jr & Rudianto'},
-{no:21,hari:'Hari 4',jam:'18.40–19.00',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-6',a:'Pemenang GP-K6',b:'Arief Rachmadi & Ricky Eko Wahyudi'},
-{no:22,hari:'Hari 4',jam:'19.00–19.20',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-7',a:'Wandaniel & Tris antani',b:'Muhammad Firdaus & Bimo Pramulaksono'},
-{no:23,hari:'Hari 4',jam:'19.20–19.40',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-8',a:'Muhammad Fajar Nugraha & Mochammad Rizky Dhermawan',b:'Roni S & Rezky Pratomo'},
-{no:24,hari:'Hari 4',jam:'19.40–20.00',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-1',a:'Pemenang GC-K1',b:'Pemenang GC-K2'},
-{no:25,hari:'Hari 5',jam:'18.00–18.20',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-2',a:'Pemenang GC-K3',b:'Pemenang GC-K4'},
-{no:26,hari:'Hari 5',jam:'18.20–18.40',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-3',a:'Pemenang GC-K5',b:'Pemenang GC-K6'},
-{no:27,hari:'Hari 5',jam:'18.40–19.00',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-4',a:'Kharisma Aprilia Lestari & Andi Rusandi',b:'Wirda Kurnia Sari & Adi Susatyo Prabowo'},
-{no:28,hari:'Hari 5',jam:'19.00–19.20',kat:'Ganda Putri',babak:'Semifinal',kode:'GPi-SF-1',a:'Pemenang GPi-K1',b:'Pemenang GPi-K2'},
-{no:29,hari:'Hari 5',jam:'19.20–19.40',kat:'Ganda Putri',babak:'Semifinal',kode:'GPi-SF-2',a:'Pemenang GPi-K3',b:'Shiena Aprisilia V A & Anita Zuliani'},
-{no:30,hari:'Hari 5',jam:'19.40–20.00',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-1',a:'Pemenang GP-16B-1',b:'Pemenang GP-16B-2'},
-{no:31,hari:'Hari 6',jam:'18.00–18.20',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-2',a:'Pemenang GP-16B-3',b:'Pemenang GP-16B-4'},
-{no:32,hari:'Hari 6',jam:'18.20–18.40',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-3',a:'Pemenang GP-16B-5',b:'Pemenang GP-16B-6'},
-{no:33,hari:'Hari 6',jam:'18.40–19.00',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-4',a:'Pemenang GP-16B-7',b:'Pemenang GP-16B-8'},
-{no:34,hari:'Hari 6',jam:'19.00–19.20',kat:'Ganda Campuran',babak:'Semifinal',kode:'GC-SF-1',a:'Pemenang GC-8B-1',b:'Pemenang GC-8B-2'},
-{no:35,hari:'Hari 6',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'Semifinal',kode:'GC-SF-2',a:'Pemenang GC-8B-3',b:'Pemenang GC-8B-4'},
-{no:36,hari:'Hari 6',jam:'19.40–20.00',kat:'Ganda Putri',babak:'Perebutan Juara 3',kode:'GPi-3RD',a:'Kalah GPi-SF-1',b:'Kalah GPi-SF-2'},
-{no:37,hari:'Hari 7',jam:'18.00–18.20',kat:'Ganda Putri',babak:'Final',kode:'GPi-F',a:'Pemenang GPi-SF-1',b:'Pemenang GPi-SF-2'},
-{no:38,hari:'Hari 7',jam:'18.20–18.40',kat:'Ganda Putra',babak:'Semifinal',kode:'GP-SF-1',a:'Pemenang GP-8B-1',b:'Pemenang GP-8B-2'},
-{no:39,hari:'Hari 7',jam:'18.40–19.00',kat:'Ganda Putra',babak:'Semifinal',kode:'GP-SF-2',a:'Pemenang GP-8B-3',b:'Pemenang GP-8B-4'},
-{no:40,hari:'Hari 7',jam:'19.00–19.20',kat:'Ganda Campuran',babak:'Perebutan Juara 3',kode:'GC-3RD',a:'Kalah GC-SF-1',b:'Kalah GC-SF-2'},
-{no:41,hari:'Hari 7',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'Final',kode:'GC-F',a:'Pemenang GC-SF-1',b:'Pemenang GC-SF-2'},
-{no:42,hari:'Hari 7',jam:'19.40–20.00',kat:'Ganda Putra',babak:'Perebutan Juara 3',kode:'GP-3RD',a:'Kalah GP-SF-1',b:'Kalah GP-SF-2'},
-{no:43,hari:'Hari 8',jam:'18.00–18.20',kat:'Ganda Putra',babak:'Final',kode:'GP-F',a:'Pemenang GP-SF-1',b:'Pemenang GP-SF-2'},
+{no:1,hari:'Kamis, 10 September 2026',jam:'18.00–18.20',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K1',a:'Reigi Ahmad Fadilah & Ì Komang Try Raditya',b:'Muhammad Pasca Ramadhan & Randy purba'},
+{no:2,hari:'Kamis, 10 September 2026',jam:'18.20–18.40',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K2',a:'Dwi Saputro & Wahyu Sumarsono',b:'Faiz N. & Arief Dharmawan'},
+{no:3,hari:'Kamis, 10 September 2026',jam:'19.00–19.20',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K3',a:'Juan Maruli & Ghuvron Al Husni',b:'Putra Septa Anjaya & Historida Aji Bagaskara'},
+{no:4,hari:'Kamis, 10 September 2026',jam:'19.20–19.40',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K4',a:'Ardiansyah & Oktadika',b:'Mochamad faisal & Ahmad rizki'},
+{no:5,hari:'Senin, 14 September 2026',jam:'18.00–18.20',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K5',a:'Kiki Aditiya & Maman',b:'Helmi Sudiro & Haryo Paminto A.'},
+{no:6,hari:'Senin, 14 September 2026',jam:'18.20–18.40',kat:'Ganda Putra',babak:'Kualifikasi',kode:'GP-K6',a:'Asdy R & Yohanes Suryo',b:'Dedi Setiawan & Phingay Ramadhan'},
+{no:7,hari:'Senin, 14 September 2026',jam:'19.00–19.20',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K1',a:'Faiz Nashiruddin & Karina Kemala Citra',b:'Shiena Aprisilia V A & Bobby Rizal C'},
+{no:8,hari:'Senin, 14 September 2026',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K2',a:'Historida Bagas & Kartika Amareta',b:'Agung Triyadi & Yasinthr Puteri Larasati'},
+{no:9,hari:'Kamis, 17 September 2026',jam:'18.00–18.20',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K3',a:'Wandaniel & Clara',b:'Safri Adi Pribadi & Anita Zuliani'},
+{no:10,hari:'Kamis, 17 September 2026',jam:'18.20–18.40',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K4',a:'Desiyanti Pratiwi & Maman Nurbagiyo',b:'Slamet Kurniawan & Anniaa Aprilia'},
+{no:11,hari:'Kamis, 17 September 2026',jam:'19.00–19.20',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K5',a:'Kiki Aditya & Tina',b:'dwi saputro & Erika Sihombing'},
+{no:12,hari:'Kamis, 17 September 2026',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K6',a:'Riska Amira & Jepri',b:'Firda Fujianti & Wahyudi Kurnia'},
+{no:13,hari:'Senin, 21 September 2026',jam:'18.00–18.20',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K7',a:'Niken Pratiwi & Muhamad Aksal',b:'Kharisma Aprilia Lestari & Andi Rusandi'},
+{no:14,hari:'Senin, 21 September 2026',jam:'18.20–18.40',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K1',a:'Kharisma Aprilia Lestari & Annisa Aprilia Pusparani',b:'Wirda Kurnia Sari & Rizka Fajrin'},
+{no:15,hari:'Senin, 21 September 2026',jam:'19.00–19.20',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K2',a:'Firda nur annisa fujianti & Putri wahyuriani',b:'Desiyanti Pratiwi & Erika Sihombing'},
+{no:16,hari:'Senin, 21 September 2026',jam:'19.20–19.40',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K3',a:'Novi Susanti & Ratih',b:'Riska Amira & Yashinta Larasati'},
+{no:17,hari:'Kamis, 24 September 2026',jam:'18.00–18.20',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-7',a:'Wandaniel & Tris antani',b:'Muhammad Firdaus & Bimo Pramulaksono'},
+{no:18,hari:'Kamis, 24 September 2026',jam:'18.20–18.40',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-8',a:'Muhammad Fajar Nugraha & Mochammad Rizky Dhermawan',b:'Roni S & Rezky Pratomo'},
+{no:19,hari:'Kamis, 24 September 2026',jam:'19.00–19.20',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-1',a:'Pemenang GP-K1',b:'Bobby R Chaniago & Wahyudi Kurnia'},
+{no:20,hari:'Kamis, 24 September 2026',jam:'19.20–19.40',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-2',a:'Pemenang GP-K2',b:'Safri Adi Pribadi & Slamet'},
+{no:21,hari:'Senin, 28 September 2026',jam:'18.00–18.20',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-3',a:'Pemenang GP-K3',b:'Andi Rusandi & Agus Sentosa'},
+{no:22,hari:'Senin, 28 September 2026',jam:'18.20–18.40',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-4',a:'Pemenang GP-K4',b:'Agung Triyadi & Jepri'},
+{no:23,hari:'Senin, 28 September 2026',jam:'19.00–19.20',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-5',a:'Pemenang GP-K5',b:'Guntur Masputra Jr & Rudianto'},
+{no:24,hari:'Senin, 28 September 2026',jam:'19.20–19.40',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-6',a:'Pemenang GP-K6',b:'Arief Rachmadi & Ricky Eko Wahyudi'},
+{no:25,hari:'Kamis, 01 Oktober 2026',jam:'18.00–18.20',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-1',a:'Pemenang GC-K1',b:'Pemenang GC-K2'},
+{no:26,hari:'Kamis, 01 Oktober 2026',jam:'18.20–18.40',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-2',a:'Pemenang GC-K3',b:'Pemenang GC-K4'},
+{no:27,hari:'Kamis, 01 Oktober 2026',jam:'19.00–19.20',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-3',a:'Pemenang GC-K5',b:'Pemenang GC-K6'},
+{no:28,hari:'Kamis, 01 Oktober 2026',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-4',a:'Pemenang GC-K7',b:'Wirda Kurnia Sari & Adi Susatyo Prabowo'},
+{no:29,hari:'Kamis, 08 Oktober 2026',jam:'18.00–18.20',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-1',a:'Pemenang GP-16B-1',b:'Pemenang GP-16B-2'},
+{no:30,hari:'Kamis, 08 Oktober 2026',jam:'18.20–18.40',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-2',a:'Pemenang GP-16B-3',b:'Pemenang GP-16B-4'},
+{no:31,hari:'Kamis, 08 Oktober 2026',jam:'19.00–19.20',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-3',a:'Pemenang GP-16B-5',b:'Pemenang GP-16B-6'},
+{no:32,hari:'Kamis, 08 Oktober 2026',jam:'19.20–19.40',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-4',a:'Pemenang GP-16B-7',b:'Pemenang GP-16B-8'},
+{no:33,hari:'Kamis, 15 Oktober 2026',jam:'18.00–18.30',kat:'Ganda Putri',babak:'Semifinal',kode:'GPi-SF-1',a:'Pemenang GPi-K1',b:'Pemenang GPi-K2'},
+{no:34,hari:'Kamis, 15 Oktober 2026',jam:'18.30–19.00',kat:'Ganda Putri',babak:'Semifinal',kode:'GPi-SF-2',a:'Pemenang GPi-K3',b:'Shiena Aprisilia V A & Anita Zuliani'},
+{no:35,hari:'Kamis, 15 Oktober 2026',jam:'19.00–19.30',kat:'Ganda Campuran',babak:'Semifinal',kode:'GC-SF-1',a:'Pemenang GC-8B-1',b:'Pemenang GC-8B-2'},
+{no:36,hari:'Kamis, 15 Oktober 2026',jam:'19.30–20.00',kat:'Ganda Campuran',babak:'Semifinal',kode:'GC-SF-2',a:'Pemenang GC-8B-3',b:'Pemenang GC-8B-4'},
+{no:37,hari:'Kamis, 15 Oktober 2026',jam:'20.00–20.30',kat:'Ganda Putra',babak:'Semifinal',kode:'GP-SF-1',a:'Pemenang GP-8B-1',b:'Pemenang GP-8B-2'},
+{no:38,hari:'Kamis, 15 Oktober 2026',jam:'20.30–21.00',kat:'Ganda Putra',babak:'Semifinal',kode:'GP-SF-2',a:'Pemenang GP-8B-3',b:'Pemenang GP-8B-4'},
+{no:39,hari:'Kamis, 22 Oktober 2026',jam:'18.00–18.30',kat:'Ganda Putri',babak:'Final',kode:'GPi-F',a:'Pemenang GPi-SF-1',b:'Pemenang GPi-SF-2'},
+{no:40,hari:'Kamis, 22 Oktober 2026',jam:'18.00–18.30',kat:'Ganda Putri',babak:'Perebutan Juara 3',kode:'GPi-3RD',a:'Kalah GPi-SF-1',b:'Kalah GPi-SF-2'},
+{no:41,hari:'Kamis, 22 Oktober 2026',jam:'18.30–19.00',kat:'Ganda Campuran',babak:'Final',kode:'GC-F',a:'Pemenang GC-SF-1',b:'Pemenang GC-SF-2'},
+{no:42,hari:'Kamis, 22 Oktober 2026',jam:'18.30–19.00',kat:'Ganda Campuran',babak:'Perebutan Juara 3',kode:'GC-3RD',a:'Kalah GC-SF-1',b:'Kalah GC-SF-2'},
+{no:43,hari:'Kamis, 22 Oktober 2026',jam:'19.00–19.30',kat:'Ganda Putra',babak:'Final',kode:'GP-F',a:'Pemenang GP-SF-1',b:'Pemenang GP-SF-2'},
+{no:44,hari:'Kamis, 22 Oktober 2026',jam:'19.00–19.30',kat:'Ganda Putra',babak:'Perebutan Juara 3',kode:'GP-3RD',a:'Kalah GP-SF-1',b:'Kalah GP-SF-2'},
 ];
 
 // Bracket: recursive tree per category. A node is either
@@ -513,7 +514,7 @@ const BRACKETS = {
       ),
       match('GC-SF-2','Semifinal',
         match('GC-8B-3','8 Besar', match('GC-K5','Kualifikasi', team('Kiki Aditya & Tina'), team('dwi saputro & Erika Sihombing')), match('GC-K6','Kualifikasi', team('Riska Amira & Jepri'), team('Firda Fujianti & Wahyudi Kurnia'))),
-        match('GC-8B-4','8 Besar', team('Kharisma Aprilia Lestari & Andi Rusandi'), team('Wirda Kurnia Sari & Adi Susatyo Prabowo'))
+        match('GC-8B-4','8 Besar', match('GC-K7','Kualifikasi', team('Niken Pratiwi & Muhamad Aksal'), team('Kharisma Aprilia Lestari & Andi Rusandi')), team('Wirda Kurnia Sari & Adi Susatyo Prabowo'))
       )
     ),
     thirdCode:'GC-3RD', sfCodes:['GC-SF-1','GC-SF-2']
@@ -721,6 +722,14 @@ function collectByRound(node, byRound){
   (byRound[node.round] = byRound[node.round] || []).push(node);
 }
 
+// "Kamis, 10 September 2026" -> "10 Sep" for the compact bracket badge.
+const MONTH_ABBR = {Januari:'Jan',Februari:'Feb',Maret:'Mar',April:'Apr',Mei:'Mei',Juni:'Jun',Juli:'Jul',Agustus:'Agu',September:'Sep',Oktober:'Okt',November:'Nov',Desember:'Des'};
+function shortDate(hari){
+  const m = (hari||'').match(/(\d{1,2}) (\w+)/);
+  if(!m) return hari||'';
+  return `${m[1]} ${MONTH_ABBR[m[2]]||m[2]}`;
+}
+
 function slotHtml(node, sideClass){
   if(node.t==='team'){
     const hi = query && norm(node.name).includes(query);
@@ -730,7 +739,7 @@ function slotHtml(node, sideClass){
   const raw = 'Pemenang ' + node.code;
   const resolved = resolveText(raw);
   const pending = resolved === raw;
-  const dayTag = info ? info.hari.replace('Hari ','H') : '';
+  const dayTag = info ? shortDate(info.hari) : '';
   const title = pending ? (info ? `Ditentukan di ${info.hari}, ${info.jam}` : node.code) : node.code;
   const hi = query && !pending && norm(resolved).includes(query);
   return `<div class="slot${pending?' bye':''}${hi?' hi':''}" title="${title}"><span class="name">${resolved}</span>${pending?`<span class="who">${dayTag}</span>`:''}</div>`;
