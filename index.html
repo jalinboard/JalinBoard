@@ -368,14 +368,15 @@
         <h1 class="title">Jadwal &amp; <em>Bagan</em> Turnamen</h1>
       </div>
     </div>
-    <p class="subtitle">Badminton &amp; FIFA: sistem gugur (single elimination) per kategori, diambil 3 terbaik &middot; Futsal Cowok: fase grup (liga, 2 grup round-robin) dilanjut semifinal &amp; final &middot; Badminton 20&ndash;30 menit/pertandingan, FIFA 30 menit/pertandingan 2 konsol paralel, Futsal 2x15 menit/pertandingan.</p>
+    <p class="subtitle">Badminton, FIFA &amp; Tennis Meja: sistem gugur (single elimination) per kategori, diambil 3 terbaik &middot; Futsal Cowok: fase grup (liga, 2 grup round-robin) dilanjut semifinal &amp; final &middot; Badminton 20&ndash;30 menit/pertandingan, FIFA 30 menit/pertandingan 2 konsol paralel, Futsal 2x15 menit/pertandingan, Tennis Meja 20&ndash;30 menit/pertandingan.</p>
     <div class="stat-row">
-      <div class="stat-chip"><b>91</b> pertandingan</div>
-      <div class="stat-chip"><b>19</b> hari main</div>
-      <div class="stat-chip"><b>3</b> cabor</div>
+      <div class="stat-chip"><b>114</b> pertandingan</div>
+      <div class="stat-chip"><b>24</b> hari main</div>
+      <div class="stat-chip"><b>4</b> cabor</div>
       <div class="stat-chip"><b>45</b> pendaftaran Badminton (PIC Jepri)</div>
       <div class="stat-chip"><b>25</b> pendaftaran FIFA (PIC Rio)</div>
       <div class="stat-chip"><b>9</b> pendaftaran Futsal (PIC Reno)</div>
+      <div class="stat-chip"><b>23</b> pendaftaran Tennis Meja (PIC Reigi)</div>
       <span class="mode-chip" id="mode-chip"><span class="dotm"></span>Memuat status…</span>
       <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Ganti mode gelap/terang"></button>
     </div>
@@ -385,6 +386,7 @@
     <button class="tab-btn sport-tab" data-sport="Badminton" aria-selected="true">Badminton</button>
     <button class="tab-btn sport-tab" data-sport="FIFA" aria-selected="false">FIFA</button>
     <button class="tab-btn sport-tab" data-sport="Futsal" aria-selected="false">Futsal</button>
+    <button class="tab-btn sport-tab" data-sport="Tennis Meja" aria-selected="false">Tennis Meja</button>
   </div>
 
   <div class="controls">
@@ -424,8 +426,8 @@
   </section>
 
   <footer class="foot">
-    <span>Sumber: REGISTRASI JALIN SPORTIFY FEST 2026.xlsx &middot; sheet Jadwal &amp; Bagan Badminton / Jadwal &amp; Bagan Fifa / Futsal Cowok</span>
-    <span>PIC Badminton: Jepri &middot; PIC FIFA: Rio &middot; PIC Futsal: Reno</span>
+    <span>Sumber: REGISTRASI JALIN SPORTIFY FEST 2026.xlsx &middot; sheet Jadwal &amp; Bagan Badminton / Jadwal &amp; Bagan Fifa / Futsal Cowok / Tennis Meja</span>
+    <span>PIC Badminton: Jepri &middot; PIC FIFA: Rio &middot; PIC Futsal: Reno &middot; PIC Tennis Meja: Reigi</span>
   </footer>
 </div>
 
@@ -569,6 +571,29 @@ const JADWAL = [
 {no:89,hari:'Kamis, 22 Oktober 2026',jam:'19.00–19.30',kat:'Ganda Putra',babak:'Perebutan Juara 3',kode:'GP-3RD',a:'Kalah GP-SF-1',b:'Kalah GP-SF-2'},
 {no:90,hari:'Jumat, 30 Oktober 2026',jam:'15.50–16.40',kat:'Futsal',babak:'Perebutan Juara 3',kode:'FUT-3RD',a:'Kalah FUT-SF-1',b:'Kalah FUT-SF-2'},
 {no:91,hari:'Jumat, 30 Oktober 2026',jam:'16.40–17.40',kat:'Futsal',babak:'Final',kode:'FUT-FINAL',a:'Pemenang FUT-SF-1',b:'Pemenang FUT-SF-2'},
+{no:92,hari:'Selasa, 22 September 2026',jam:'18.00–18.20',kat:'Tennis Meja',babak:'Babak 1',kode:'TM-R1-1',a:'Muhammad Fajar Nugraha & Mochammad Rizky Dhermawan',b:'Faiz Nashiruddin & Arief Hardiyanto'},
+{no:93,hari:'Selasa, 22 September 2026',jam:'18.20–18.40',kat:'Tennis Meja',babak:'Babak 1',kode:'TM-R1-2',a:'Nazarudin Fahmi & Ferdinan Mardison',b:'Ahmad Sulthon Al Ayyubi & Nuzul Ramadani Sumahna'},
+{no:94,hari:'Selasa, 22 September 2026',jam:'18.40–19.00',kat:'Tennis Meja',babak:'Babak 1',kode:'TM-R1-3',a:'Reigi Ahmad Fadilah & Ryan Agung Anggoro',b:'Nadira Ulvi & Erika Sihombing'},
+{no:95,hari:'Selasa, 22 September 2026',jam:'19.00–19.20',kat:'Tennis Meja',babak:'Babak 1',kode:'TM-R1-4',a:'Anjas Riadi & Kiki Aditiya',b:'Rama & Safri'},
+{no:96,hari:'Selasa, 22 September 2026',jam:'19.20–19.40',kat:'Tennis Meja',babak:'Babak 1',kode:'TM-R1-5',a:'Andi Rusandi & Agus Sentosa',b:'Abdul Hakim Amir & Aries Fajar Kurnia'},
+{no:97,hari:'Selasa, 22 September 2026',jam:'19.40–20.00',kat:'Tennis Meja',babak:'Babak 1',kode:'TM-R1-6',a:'Ahmad Hadi Wijaya Kusumah & Amiruddin',b:'Helmi Sudiro & Haryo Paminto A.'},
+{no:98,hari:'Selasa, 22 September 2026',jam:'20.00–20.20',kat:'Tennis Meja',babak:'Babak 1',kode:'TM-R1-7',a:'Bintang & Arief',b:'I Komang Try Raditya & Niko Fajar Utama'},
+{no:99,hari:'Selasa, 6 Oktober 2026',jam:'18.00–18.20',kat:'Tennis Meja',babak:'16 Besar',kode:'TM-16B-1',a:'Rendi Sabillillah & Rifqi Hazazi',b:'Ibnu Sawal & Slamet Kurniawan'},
+{no:100,hari:'Selasa, 6 Oktober 2026',jam:'18.20–18.40',kat:'Tennis Meja',babak:'16 Besar',kode:'TM-16B-2',a:'Putra Anjaya & Iqbal Igo',b:'Syahreza Maulana & Bobby Chaniago'},
+{no:101,hari:'Selasa, 6 Oktober 2026',jam:'18.40–19.00',kat:'Tennis Meja',babak:'16 Besar',kode:'TM-16B-3',a:'Guntur Masputra Jr & Muhada Fadhzil J',b:'Wandaniel & Ricky Eko W'},
+{no:102,hari:'Selasa, 6 Oktober 2026',jam:'19.00–19.20',kat:'Tennis Meja',babak:'16 Besar',kode:'TM-16B-4',a:'Pemenang TM-R1-1',b:'Pemenang TM-R1-2'},
+{no:103,hari:'Selasa, 6 Oktober 2026',jam:'19.20–19.40',kat:'Tennis Meja',babak:'16 Besar',kode:'TM-16B-5',a:'Farqan Thanzalla & Arief Dharmawan',b:'Pemenang TM-R1-3'},
+{no:104,hari:'Selasa, 6 Oktober 2026',jam:'19.40–20.00',kat:'Tennis Meja',babak:'16 Besar',kode:'TM-16B-6',a:'Pemenang TM-R1-4',b:'Muhammad Farros Imaroh & Agus Baihaki'},
+{no:105,hari:'Selasa, 6 Oktober 2026',jam:'20.00–20.20',kat:'Tennis Meja',babak:'16 Besar',kode:'TM-16B-7',a:'Dedi Setiawan & Phingay Ramadhan',b:'Pemenang TM-R1-5'},
+{no:106,hari:'Selasa, 6 Oktober 2026',jam:'20.20–20.40',kat:'Tennis Meja',babak:'16 Besar',kode:'TM-16B-8',a:'Pemenang TM-R1-6',b:'Pemenang TM-R1-7'},
+{no:107,hari:'Selasa, 13 Oktober 2026',jam:'18.00–18.20',kat:'Tennis Meja',babak:'8 Besar',kode:'TM-8B-1',a:'Pemenang TM-16B-1',b:'Pemenang TM-16B-2'},
+{no:108,hari:'Selasa, 13 Oktober 2026',jam:'18.20–18.40',kat:'Tennis Meja',babak:'8 Besar',kode:'TM-8B-2',a:'Pemenang TM-16B-3',b:'Pemenang TM-16B-4'},
+{no:109,hari:'Selasa, 13 Oktober 2026',jam:'18.40–19.00',kat:'Tennis Meja',babak:'8 Besar',kode:'TM-8B-3',a:'Pemenang TM-16B-5',b:'Pemenang TM-16B-6'},
+{no:110,hari:'Selasa, 13 Oktober 2026',jam:'19.00–19.20',kat:'Tennis Meja',babak:'8 Besar',kode:'TM-8B-4',a:'Pemenang TM-16B-7',b:'Pemenang TM-16B-8'},
+{no:111,hari:'Selasa, 20 Oktober 2026',jam:'18.00–18.30',kat:'Tennis Meja',babak:'Semifinal',kode:'TM-SF-1',a:'Pemenang TM-8B-1',b:'Pemenang TM-8B-2'},
+{no:112,hari:'Selasa, 20 Oktober 2026',jam:'18.30–19.00',kat:'Tennis Meja',babak:'Semifinal',kode:'TM-SF-2',a:'Pemenang TM-8B-3',b:'Pemenang TM-8B-4'},
+{no:113,hari:'Selasa, 27 Oktober 2026',jam:'18.00–18.30',kat:'Tennis Meja',babak:'Perebutan Juara 3',kode:'TM-3RD',a:'Kalah TM-SF-1',b:'Kalah TM-SF-2'},
+{no:114,hari:'Selasa, 27 Oktober 2026',jam:'18.30–19.00',kat:'Tennis Meja',babak:'Final',kode:'TM-FINAL',a:'Pemenang TM-SF-1',b:'Pemenang TM-SF-2'},
 ];
 
 // Bracket: recursive tree per category. A node is either
@@ -647,6 +672,11 @@ const BRACKETS = {
       match('FUT-SF-2','Semifinal', team('Juara Grup B'), team('Runner Up Grup A'))
     ),
     thirdCode:'FUT-3RD', sfCodes:['FUT-SF-1','FUT-SF-2']
+  },
+  'Tennis Meja': {
+    rounds: ['Babak 1','16 Besar','8 Besar','Semifinal','Final'],
+    final: match('TM-FINAL','Final', match('TM-SF-1','Semifinal', match('TM-8B-1','8 Besar', match('TM-16B-1','16 Besar', team('Rendi Sabillillah & Rifqi Hazazi'), team('Ibnu Sawal & Slamet Kurniawan')), match('TM-16B-2','16 Besar', team('Putra Anjaya & Iqbal Igo'), team('Syahreza Maulana & Bobby Chaniago'))), match('TM-8B-2','8 Besar', match('TM-16B-3','16 Besar', team('Guntur Masputra Jr & Muhada Fadhzil J'), team('Wandaniel & Ricky Eko W')), match('TM-16B-4','16 Besar', match('TM-R1-1','Babak 1', team('Muhammad Fajar Nugraha & Mochammad Rizky Dhermawan'), team('Faiz Nashiruddin & Arief Hardiyanto')), match('TM-R1-2','Babak 1', team('Nazarudin Fahmi & Ferdinan Mardison'), team('Ahmad Sulthon Al Ayyubi & Nuzul Ramadani Sumahna'))))), match('TM-SF-2','Semifinal', match('TM-8B-3','8 Besar', match('TM-16B-5','16 Besar', team('Farqan Thanzalla & Arief Dharmawan'), match('TM-R1-3','Babak 1', team('Reigi Ahmad Fadilah & Ryan Agung Anggoro'), team('Nadira Ulvi & Erika Sihombing'))), match('TM-16B-6','16 Besar', match('TM-R1-4','Babak 1', team('Anjas Riadi & Kiki Aditiya'), team('Rama & Safri')), team('Muhammad Farros Imaroh & Agus Baihaki'))), match('TM-8B-4','8 Besar', match('TM-16B-7','16 Besar', team('Dedi Setiawan & Phingay Ramadhan'), match('TM-R1-5','Babak 1', team('Andi Rusandi & Agus Sentosa'), team('Abdul Hakim Amir & Aries Fajar Kurnia'))), match('TM-16B-8','16 Besar', match('TM-R1-6','Babak 1', team('Ahmad Hadi Wijaya Kusumah & Amiruddin'), team('Helmi Sudiro & Haryo Paminto A.')), match('TM-R1-7','Babak 1', team('Bintang & Arief'), team('I Komang Try Raditya & Niko Fajar Utama')))))),
+    thirdCode:'TM-3RD', sfCodes:['TM-SF-1','TM-SF-2']
   }
 };
 
@@ -909,7 +939,7 @@ const jadwalHolder = document.getElementById('jadwal-days');
 let activeCat = 'all';
 let query = '';
 
-const SPORT_OF = {'Ganda Putra':'Badminton','Ganda Putri':'Badminton','Ganda Campuran':'Badminton','FIFA':'FIFA','Futsal':'Futsal'};
+const SPORT_OF = {'Ganda Putra':'Badminton','Ganda Putri':'Badminton','Ganda Campuran':'Badminton','FIFA':'FIFA','Futsal':'Futsal','Tennis Meja':'Tennis Meja'};
 let activeSport = 'Badminton';
 
 function renderJadwal(){
@@ -1133,7 +1163,7 @@ document.querySelectorAll('.sport-tab').forEach(btn=>{
     activeSport = btn.dataset.sport;
     activeCat = 'all';
     document.querySelectorAll('#cat-filter .chip').forEach(c=>c.setAttribute('aria-pressed', c.dataset.cat==='all' ? 'true':'false'));
-    if(activeSport === 'FIFA' || activeSport === 'Futsal'){
+    if(activeSport === 'FIFA' || activeSport === 'Futsal' || activeSport === 'Tennis Meja'){
       catFilterEl.style.display = 'none';
       catTabsEl.style.display = 'none';
       activeBracketCat = activeSport;
