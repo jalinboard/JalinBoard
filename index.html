@@ -498,7 +498,7 @@ const JADWAL = [
 {no:16,hari:'Senin, 21 September 2026',jam:'18.20–18.40',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K2',a:'Firda nur annisa fujianti & Putri wahyuriani',b:'Desiyanti Pratiwi & Erika Sihombing'},
 {no:17,hari:'Senin, 21 September 2026',jam:'19.00–19.20',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K3',a:'Novi Susanti & Ratih',b:'Riska Amira & Yashinta Larasati'},
 {no:18,hari:'Senin, 21 September 2026',jam:'19.20–19.40',kat:'Ganda Putri',babak:'Kualifikasi',kode:'GPi-K4',a:'Shiena Aprisilia V A & Anita Zuliani',b:'Ayu Nurfaizah & Rafisya Indi'},
-{no:19,hari:'Senin, 21 September 2026',jam:'19.40–20.00',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K8',a:'Wirda Kurnia Sari & Adi Susatyo Prabowo',b:'Reigi Ahmad Fadilah & Fauziah Nur Azizah'},
+{no:19,hari:'Senin, 28 September 2026',jam:'19.00–19.20',kat:'Ganda Campuran',babak:'Kualifikasi',kode:'GC-K8',a:'Wirda Kurnia Sari & Adi Susatyo Prabowo',b:'Reigi Ahmad Fadilah & Fauziah Nur Azizah'},
 {no:20,hari:'Rabu, 23 September 2026',jam:'12.15–12.45',venue:'Venue 1',kat:'FIFA',babak:'32 Besar',kode:'F32-1',a:'Safri Adi Pribadi & Phingay Ramadhan',b:'Rabani Puja Ismanu & Sahrul Alam Sukma'},
 {no:21,hari:'Rabu, 23 September 2026',jam:'12.15–12.45',venue:'Venue 2',kat:'FIFA',babak:'32 Besar',kode:'F32-2',a:'Dewantara Argakusuma & Arry Suhanda',b:'Farqan Thanzalla & Arief Dharmawan'},
 {no:22,hari:'Rabu, 23 September 2026',jam:'12.45–13.15',venue:'Venue 1',kat:'FIFA',babak:'32 Besar',kode:'F32-3',a:'Muhammad Pasca Ramadhan & Fahrijar Yusuf',b:'Wahyudi Hermanto & Rifqi Athaillah Raspiyasa'},
@@ -538,7 +538,7 @@ const JADWAL = [
 {no:56,hari:'Rabu, 30 September 2026',jam:'18.30–19.00',venue:'TBA',kat:'FIFA',babak:'8 Besar',kode:'8B-3',a:'Pemenang 16B-5',b:'Pemenang 16B-6'},
 {no:57,hari:'Rabu, 30 September 2026',jam:'19.00–19.30',venue:'TBA',kat:'FIFA',babak:'8 Besar',kode:'8B-4',a:'Pemenang 16B-7',b:'Pemenang 16B-8'},
 {no:58,hari:'Kamis, 01 Oktober 2026',jam:'18.00–18.20',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-1',a:'Pemenang GC-K1',b:'Pemenang GC-K2'},
-{no:59,hari:'Kamis, 01 Oktober 2026',jam:'18.20–18.40',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-2',a:'Pemenang GC-K3',b:'Pemenang GC-K4'},
+{no:59,hari:'Senin, 28 September 2026',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-2',a:'Pemenang GC-K3',b:'Pemenang GC-K4'},
 {no:60,hari:'Kamis, 24 September 2026',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-3',a:'Pemenang GC-K5',b:'Pemenang GC-K6'},
 {no:61,hari:'Kamis, 01 Oktober 2026',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-4',a:'Pemenang GC-K7',b:'Pemenang GC-K8'},
 {no:62,hari:'Kamis, 01 Oktober 2026',jam:'19.40–20.00',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-1',a:'Pemenang GP-16B-1',b:'Pemenang GP-16B-2'},
@@ -965,12 +965,23 @@ let query = '';
 const SPORT_OF = {'Ganda Putra':'Badminton','Ganda Putri':'Badminton','Ganda Campuran':'Badminton','FIFA':'FIFA','Futsal':'Futsal','Tennis Meja':'Tennis Meja'};
 let activeSport = 'Badminton';
 
+const BULAN_ID = {Januari:0,Februari:1,Maret:2,April:3,Mei:4,Juni:5,Juli:6,Agustus:7,September:8,Oktober:9,November:10,Desember:11};
+function hariToDate(str){
+  const m = String(str).match(/(\d{1,2})\s+(\w+)\s+(\d{4})/);
+  if(!m) return new Date(8640000000000000);
+  return new Date(+m[3], BULAN_ID[m[2]] ?? 0, +m[1]);
+}
+function jamToMinutes(jam){
+  const m = String(jam).match(/(\d{1,2})[.:](\d{2})/);
+  if(!m) return 0;
+  return (+m[1])*60 + (+m[2]);
+}
 function renderJadwal(){
   const scoped = JADWAL.filter(m=>SPORT_OF[m.kat]===activeSport);
-  const days = [...new Set(scoped.map(m=>m.hari))];
+  const days = [...new Set(scoped.map(m=>m.hari))].sort((a,b)=>hariToDate(a)-hariToDate(b));
   jadwalHolder.innerHTML = '';
   days.forEach(day=>{
-    const rows = scoped.filter(m=>m.hari===day);
+    const rows = scoped.filter(m=>m.hari===day).sort((a,b)=>jamToMinutes(a.jam)-jamToMinutes(b.jam));
     const block = document.createElement('div');
     block.className = 'day-block';
     const visibleCount = rows.filter(passesFilter).length;
