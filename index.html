@@ -219,6 +219,13 @@
     display:flex; flex-direction:column; align-items:center; gap:2px;
   }
   .m-score{ font-family:"IBM Plex Mono",monospace; font-size:14px; color:var(--court-strong); font-weight:600; }
+  .m-fase{
+    grid-column:1 / -1; margin-top:6px; padding-top:6px; border-top:1px dashed var(--line);
+    display:flex; flex-wrap:wrap; gap:4px 12px; font-size:11px; color:var(--ink-dim);
+    font-family:"IBM Plex Mono",monospace;
+  }
+  .m-fase span{ white-space:nowrap; }
+  .m-fase b{ color:var(--ink); font-weight:600; text-transform:uppercase; letter-spacing:.03em; font-size:10px; }
   .edit-panel{
     grid-column:1 / -1; margin-top:8px; padding-top:10px; border-top:1px dashed var(--line);
     display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px;
@@ -370,7 +377,7 @@
     </div>
     <p class="subtitle">Badminton, FIFA &amp; Tennis Meja: sistem gugur (single elimination) per kategori, diambil 3 terbaik &middot; Futsal Cowok: fase grup (liga, 2 grup round-robin) dilanjut semifinal &amp; final &middot; Badminton 20&ndash;30 menit/pertandingan, FIFA 30 menit/pertandingan 2 konsol paralel, Futsal 2x15 menit/pertandingan, Tennis Meja 20&ndash;30 menit/pertandingan.</p>
     <div class="stat-row">
-      <div class="stat-chip"><b>114</b> pertandingan</div>
+      <div class="stat-chip"><b>115</b> pertandingan</div>
       <div class="stat-chip"><b>27</b> hari main</div>
       <div class="stat-chip"><b>4</b> cabor</div>
       <div class="stat-chip"><b>45</b> pendaftaran Badminton (PIC Jepri)</div>
@@ -511,9 +518,9 @@ const JADWAL = [
 {no:29,hari:'Kamis, 24 September 2026',jam:'18.20–18.40',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-8',a:'Muhammad Fajar Nugraha & Mochammad Rizky Dhermawan',b:'Roni S & Rezky Pratomo'},
 {no:30,hari:'Kamis, 24 September 2026',jam:'18.40–19.00',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-1',a:'Pemenang GP-K1',b:'Bobby R Chaniago & Wahyudi Kurnia'},
 {no:31,hari:'Kamis, 24 September 2026',jam:'19.00–19.20',kat:'Ganda Putra',babak:'16 Besar',kode:'GP-16B-2',a:'Pemenang GP-K2',b:'Safri Adi Pribadi & Slamet'},
-{no:32,hari:'Jumat, 25 September 2026',jam:'19.15–19.50',kat:'Futsal',babak:'Grup A',kode:'FUT-A1',a:'CEO 2',b:'CTO 1'},
-{no:33,hari:'Jumat, 25 September 2026',jam:'20.05–20.40',kat:'Futsal',babak:'Grup B',kode:'FUT-B1',a:'CEO 1',b:'COO 1'},
-{no:34,hari:'Jumat, 25 September 2026',jam:'20.55–21.40',kat:'Futsal',babak:'Grup A',kode:'FUT-A2',a:'COO 2',b:'COMM'},
+{no:32,hari:'Jumat, 25 September 2026',jam:'19.15–19.50',kat:'Futsal',babak:'Grup A',kode:'FUT-A1',a:'CEO 2',b:'CTO 1',fase:[{label:'Persiapan',jam:'19.00–19.15'},{label:'Babak 1',jam:'19.15–19.30'},{label:'Istirahat',jam:'19.30–19.35'},{label:'Babak 2',jam:'19.35–19.50'}]},
+{no:33,hari:'Jumat, 25 September 2026',jam:'20.05–20.40',kat:'Futsal',babak:'Grup B',kode:'FUT-B1',a:'CEO 1',b:'COO 1',fase:[{label:'Persiapan',jam:'19.50–20.05'},{label:'Babak 1',jam:'20.05–20.20'},{label:'Istirahat',jam:'20.20–20.25'},{label:'Babak 2',jam:'20.25–20.40'}]},
+{no:34,hari:'Jumat, 25 September 2026',jam:'20.55–21.40',kat:'Futsal',babak:'Grup A',kode:'FUT-A2',a:'COO 2',b:'COMM',fase:[{label:'Persiapan',jam:'20.40–20.55'},{label:'Babak 1',jam:'20.55–21.20'},{label:'Istirahat',jam:'21.20–21.25'},{label:'Babak 2',jam:'21.25–21.40'}]},
 {no:35,hari:'Senin, 28 September 2026',jam:'12.15–12.45',venue:'Venue 1',kat:'FIFA',babak:'32 Besar',kode:'F32-9',a:'Dani Mardo & Momodica',b:'Muhamad Aksal & Eka Pratama'},
 {no:36,hari:'Senin, 28 September 2026',jam:'12.15–12.45',venue:'Venue 2',kat:'FIFA',babak:'32 Besar',kode:'F32-10',a:'Wahyu Giri & Randy Purba',b:'Ade Iqbal Prasojo & Muhammad Fadly'},
 {no:37,hari:'Senin, 28 September 2026',jam:'12.45–13.15',venue:'Venue 1',kat:'FIFA',babak:'32 Besar',kode:'F32-11',a:'Tris Antani & Reno Adinata Nababan',b:'Yusnizar Rahadian Rizky & Dimpos Friston Maruahal'},
@@ -542,9 +549,9 @@ const JADWAL = [
 {no:60,hari:'Kamis, 24 September 2026',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-3',a:'Pemenang GC-K5',b:'Pemenang GC-K6'},
 {no:61,hari:'Kamis, 01 Oktober 2026',jam:'19.20–19.40',kat:'Ganda Campuran',babak:'8 Besar',kode:'GC-8B-4',a:'Pemenang GC-K7',b:'Pemenang GC-K8'},
 {no:62,hari:'Kamis, 01 Oktober 2026',jam:'19.40–20.00',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-1',a:'Pemenang GP-16B-1',b:'Pemenang GP-16B-2'},
-{no:63,hari:'Jumat, 2 Oktober 2026',jam:'19.15–19.50',kat:'Futsal',babak:'Grup A',kode:'FUT-A3',a:'COMM',b:'CTO 1'},
-{no:64,hari:'Jumat, 2 Oktober 2026',jam:'20.05–20.40',kat:'Futsal',babak:'Grup A',kode:'FUT-A4',a:'COO 2',b:'CEO 2'},
-{no:65,hari:'Jumat, 2 Oktober 2026',jam:'20.55–21.40',kat:'Futsal',babak:'Grup B',kode:'FUT-B2',a:'CTO 2',b:'COO 1'},
+{no:63,hari:'Jumat, 2 Oktober 2026',jam:'19.15–19.50',kat:'Futsal',babak:'Grup A',kode:'FUT-A3',a:'COMM',b:'CTO 1',fase:[{label:'Persiapan',jam:'19.00–19.15'},{label:'Babak 1',jam:'19.15–19.30'},{label:'Istirahat',jam:'19.30–19.35'},{label:'Babak 2',jam:'19.35–19.50'}]},
+{no:64,hari:'Jumat, 2 Oktober 2026',jam:'20.05–20.40',kat:'Futsal',babak:'Grup A',kode:'FUT-A4',a:'COO 2',b:'CEO 2',fase:[{label:'Persiapan',jam:'19.50–20.05'},{label:'Babak 1',jam:'20.05–20.20'},{label:'Istirahat',jam:'20.20–20.25'},{label:'Babak 2',jam:'20.25–20.40'}]},
+{no:65,hari:'Jumat, 2 Oktober 2026',jam:'20.55–21.40',kat:'Futsal',babak:'Grup B',kode:'FUT-B2',a:'CTO 2',b:'COO 1',fase:[{label:'Persiapan',jam:'20.40–20.55'},{label:'Babak 1',jam:'20.55–21.20'},{label:'Istirahat',jam:'21.20–21.25'},{label:'Babak 2',jam:'21.25–21.40'}]},
 {no:66,hari:'Senin, 5 Oktober 2026',jam:'12.15–12.45',venue:'Nusantara Room',kat:'FIFA',babak:'Semifinal',kode:'SF-1',a:'Pemenang 8B-1',b:'Pemenang 8B-2'},
 {no:67,hari:'Senin, 5 Oktober 2026',jam:'12.45–13.15',venue:'Nusantara Room',kat:'FIFA',babak:'Semifinal',kode:'SF-2',a:'Pemenang 8B-3',b:'Pemenang 8B-4'},
 {no:68,hari:'Senin, 5 Oktober 2026',jam:'18.30–19.00',venue:'Nusantara Room',kat:'FIFA',babak:'Perebutan Juara 3',kode:'JUARA-3',a:'Kalah SF-1',b:'Kalah SF-2'},
@@ -554,23 +561,24 @@ const JADWAL = [
 {no:72,hari:'Kamis, 08 Oktober 2026',jam:'19.00–19.20',kat:'Ganda Putra',babak:'8 Besar',kode:'GP-8B-4',a:'Pemenang GP-16B-7',b:'Pemenang GP-16B-8'},
 {no:73,hari:'Kamis, 08 Oktober 2026',jam:'19.20–19.50',kat:'Ganda Putri',babak:'Semifinal',kode:'GPi-SF-1',a:'Pemenang GPi-K1',b:'Pemenang GPi-K2'},
 {no:74,hari:'Kamis, 08 Oktober 2026',jam:'19.50–20.20',kat:'Ganda Putri',babak:'Semifinal',kode:'GPi-SF-2',a:'Pemenang GPi-K3',b:'Pemenang GPi-K4'},
-{no:75,hari:'Jumat, 9 Oktober 2026',jam:'19.15–19.50',kat:'Futsal',babak:'Grup B',kode:'FUT-B3',a:'CTO 2',b:'CEO 1'},
-{no:76,hari:'Jumat, 9 Oktober 2026',jam:'20.05–20.40',kat:'Futsal',babak:'Grup A',kode:'FUT-A5',a:'COMM',b:'CEO 2'},
-{no:77,hari:'Jumat, 9 Oktober 2026',jam:'20.55–21.40',kat:'Futsal',babak:'Grup A',kode:'FUT-A6',a:'CTO 1',b:'COO 2'},
+{no:75,hari:'Jumat, 9 Oktober 2026',jam:'19.15–19.50',kat:'Futsal',babak:'Grup B',kode:'FUT-B3',a:'CTO 2',b:'CEO 1',fase:[{label:'Persiapan',jam:'19.00–19.15'},{label:'Babak 1',jam:'19.15–19.30'},{label:'Istirahat',jam:'19.30–19.35'},{label:'Babak 2',jam:'19.35–19.50'}]},
+{no:76,hari:'Jumat, 9 Oktober 2026',jam:'20.05–20.40',kat:'Futsal',babak:'Grup A',kode:'FUT-A5',a:'COMM',b:'CEO 2',fase:[{label:'Persiapan',jam:'19.50–20.05'},{label:'Babak 1',jam:'20.05–20.20'},{label:'Istirahat',jam:'20.20–20.25'},{label:'Babak 2',jam:'20.25–20.40'}]},
+{no:77,hari:'Jumat, 9 Oktober 2026',jam:'20.55–21.40',kat:'Futsal',babak:'Grup A',kode:'FUT-A6',a:'CTO 1',b:'COO 2',fase:[{label:'Persiapan',jam:'20.40–20.55'},{label:'Babak 1',jam:'20.55–21.20'},{label:'Istirahat',jam:'21.20–21.25'},{label:'Babak 2',jam:'21.25–21.40'}]},
 {no:78,hari:'Kamis, 15 Oktober 2026',jam:'18.00–18.30',kat:'Ganda Campuran',babak:'Semifinal',kode:'GC-SF-1',a:'Pemenang GC-8B-1',b:'Pemenang GC-8B-2'},
 {no:79,hari:'Kamis, 15 Oktober 2026',jam:'18.30–19.00',kat:'Ganda Campuran',babak:'Semifinal',kode:'GC-SF-2',a:'Pemenang GC-8B-3',b:'Pemenang GC-8B-4'},
 {no:80,hari:'Kamis, 15 Oktober 2026',jam:'19.00–19.30',kat:'Ganda Putra',babak:'Semifinal',kode:'GP-SF-1',a:'Pemenang GP-8B-1',b:'Pemenang GP-8B-2'},
 {no:81,hari:'Kamis, 15 Oktober 2026',jam:'19.30–20.00',kat:'Ganda Putra',babak:'Semifinal',kode:'GP-SF-2',a:'Pemenang GP-8B-3',b:'Pemenang GP-8B-4'},
-{no:82,hari:'Jumat, 16 Oktober 2026',jam:'19.00–19.50',kat:'Futsal',babak:'Semifinal',kode:'FUT-SF-1',a:'Juara Grup A',b:'Runner Up Grup B'},
-{no:83,hari:'Jumat, 16 Oktober 2026',jam:'19.50–20.40',kat:'Futsal',babak:'Semifinal',kode:'FUT-SF-2',a:'Juara Grup B',b:'Runner Up Grup A'},
+{no:82,hari:'Jumat, 16 Oktober 2026',jam:'19.00–19.50',kat:'Futsal',babak:'Semifinal',kode:'FUT-SF-1',a:'Juara Grup A',b:'Runner Up Grup B',fase:[{label:'Persiapan',jam:'19.00–19.15'},{label:'Babak 1',jam:'19.15–19.30'},{label:'Istirahat',jam:'19.30–19.35'},{label:'Babak 2',jam:'19.35–19.50'}]},
+{no:83,hari:'Jumat, 16 Oktober 2026',jam:'19.50–20.40',kat:'Futsal',babak:'Semifinal',kode:'FUT-SF-2',a:'Juara Grup B',b:'Runner Up Grup A',fase:[{label:'Persiapan',jam:'19.50–20.05'},{label:'Babak 1',jam:'20.05–20.20'},{label:'Istirahat',jam:'20.20–20.25'},{label:'Babak 2',jam:'20.25–20.40'}]},
 {no:84,hari:'Kamis, 22 Oktober 2026',jam:'18.00–18.30',kat:'Ganda Putri',babak:'Final',kode:'GPi-F',a:'Pemenang GPi-SF-1',b:'Pemenang GPi-SF-2'},
 {no:85,hari:'Kamis, 22 Oktober 2026',jam:'18.00–18.30',kat:'Ganda Putri',babak:'Perebutan Juara 3',kode:'GPi-3RD',a:'Kalah GPi-SF-1',b:'Kalah GPi-SF-2'},
 {no:86,hari:'Kamis, 22 Oktober 2026',jam:'18.30–19.00',kat:'Ganda Campuran',babak:'Final',kode:'GC-F',a:'Pemenang GC-SF-1',b:'Pemenang GC-SF-2'},
 {no:87,hari:'Kamis, 22 Oktober 2026',jam:'18.30–19.00',kat:'Ganda Campuran',babak:'Perebutan Juara 3',kode:'GC-3RD',a:'Kalah GC-SF-1',b:'Kalah GC-SF-2'},
 {no:88,hari:'Kamis, 22 Oktober 2026',jam:'19.00–19.30',kat:'Ganda Putra',babak:'Final',kode:'GP-F',a:'Pemenang GP-SF-1',b:'Pemenang GP-SF-2'},
 {no:89,hari:'Kamis, 22 Oktober 2026',jam:'19.00–19.30',kat:'Ganda Putra',babak:'Perebutan Juara 3',kode:'GP-3RD',a:'Kalah GP-SF-1',b:'Kalah GP-SF-2'},
-{no:90,hari:'Jumat, 30 Oktober 2026',jam:'15.50–16.40',kat:'Futsal',babak:'Perebutan Juara 3',kode:'FUT-3RD',a:'Kalah FUT-SF-1',b:'Kalah FUT-SF-2'},
-{no:91,hari:'Jumat, 30 Oktober 2026',jam:'16.40–17.40',kat:'Futsal',babak:'Final',kode:'FUT-FINAL',a:'Pemenang FUT-SF-1',b:'Pemenang FUT-SF-2'},
+{no:115,hari:'Jumat, 30 Oktober 2026',jam:'15.00–15.50',kat:'Futsal',babak:'Final Putri',kode:'FUT-PUTRI-FINAL',a:'Putri Garuda',b:'Putri Nusantara',fase:[{label:'Persiapan',jam:'15.00–15.15'},{label:'Babak 1',jam:'15.15–15.30'},{label:'Istirahat',jam:'15.30–15.35'},{label:'Babak 2',jam:'15.35–15.50'}]},
+{no:90,hari:'Jumat, 30 Oktober 2026',jam:'15.50–16.40',kat:'Futsal',babak:'Perebutan Juara 3',kode:'FUT-3RD',a:'Kalah FUT-SF-1',b:'Kalah FUT-SF-2',fase:[{label:'Persiapan',jam:'15.50–16.05'},{label:'Babak 1',jam:'16.05–16.20'},{label:'Istirahat',jam:'16.20–16.25'},{label:'Babak 2',jam:'16.25–16.40'}]},
+{no:91,hari:'Jumat, 30 Oktober 2026',jam:'16.40–17.40',kat:'Futsal',babak:'Final',kode:'FUT-FINAL',a:'Pemenang FUT-SF-1',b:'Pemenang FUT-SF-2',fase:[{label:'Persiapan',jam:'16.40–16.55'},{label:'Babak 1',jam:'16.55–17.20'},{label:'Istirahat',jam:'17.20–17.25'},{label:'Babak 2',jam:'17.25–17.40'}]},
 {no:92,hari:'Selasa, 6 Oktober 2026',jam:'18.00–18.20',kat:'Tennis Meja',babak:'Penyisihan',kode:'TM-P-1',a:'Ahmad Hadi Wijaya Kusumah & Amiruddin',b:'Guntur Masputra Jr & Muhada Fadhzil J'},
 {no:93,hari:'Selasa, 6 Oktober 2026',jam:'18.30–18.50',kat:'Tennis Meja',babak:'Penyisihan',kode:'TM-P-2',a:'Muhammad Farros Imaroh & Agus Baihaki',b:'Abdul Hakim Amir & Aries Fajar Kurnia'},
 {no:94,hari:'Selasa, 6 Oktober 2026',jam:'19.00–19.20',kat:'Tennis Meja',babak:'Penyisihan',kode:'TM-P-3',a:'Farqan Thanzalla & Arief Dharmawan',b:'Putra Anjaya & Iqbal Igo'},
@@ -1000,6 +1008,9 @@ function renderJadwal(){
       const middle = res
         ? (hasScore ? `<span class="m-score">${res.scoreA}–${res.scoreB}</span>` : `<span class="m-score">WO</span>`)
         : `<span>VS</span>`;
+      const faseHtml = Array.isArray(m.fase) && m.fase.length
+        ? `<div class="m-fase">${m.fase.map(f=>`<span><b>${f.label}</b> ${f.jam}</span>`).join('')}</div>`
+        : '';
       row.innerHTML = `
         <div class="m-time">${m.jam}<span class="code">${m.kode}</span>${m.venue?`<span class="venue">${m.venue}</span>`:''}</div>
         <div class="m-team${aHi?' hi':''}${aPend?' pending':''}${res && res.winnerSlot==='A'?' winner':''}">${nameA}${waLink(nameA, reminderMsg(m, nameA, nameB))}</div>
@@ -1007,7 +1018,8 @@ function renderJadwal(){
           <span class="badge ${isFinal?'b-final':'b-round'}">${m.babak}</span>
           ${middle}
         </div>
-        <div class="m-team teamB${bHi?' hi':''}${bPend?' pending':''}${res && res.winnerSlot==='B'?' winner':''}">${nameB}${waLink(nameB, reminderMsg(m, nameB, nameA))}</div>`;
+        <div class="m-team teamB${bHi?' hi':''}${bPend?' pending':''}${res && res.winnerSlot==='B'?' winner':''}">${nameB}${waLink(nameB, reminderMsg(m, nameB, nameA))}</div>
+        ${faseHtml}`;
       if(canEdit){
         const panel = document.createElement('div');
         panel.className = 'edit-panel';
