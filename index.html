@@ -363,7 +363,37 @@
     .m-team.teamB{ grid-column:2; padding-left:14px; position:relative; }
     .m-team.teamB::before{ content:"vs"; position:absolute; left:0; top:0; font-size:9px; color:var(--ink-dim); font-family:"Big Shoulders Display",sans-serif; }
   }
+
+  /* ---------- Mobile Legends: Daftar Tim ---------- */
+  .ml-teams-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px;
+    margin-top:22px;
+  }
+  .ml-team-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 13px;
+    box-shadow:var(--shadow);
+  }
+  .ml-team-card-head{
+    display:flex; align-items:center; justify-content:space-between; margin-bottom:9px;
+  }
+  .ml-team-card-head b{ font-family:"Big Shoulders Display",sans-serif; font-size:14.5px; color:var(--ink); text-transform:uppercase; }
+  .ml-team-count{
+    font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--ink-dim);
+    border:1px solid var(--line); border-radius:999px; padding:2px 8px;
+  }
+  .ml-player{ display:flex; align-items:center; gap:7px; padding:3px 0; font-size:12px; }
+  .ml-role{
+    font-family:"IBM Plex Mono",monospace; font-size:8.5px; font-weight:700; letter-spacing:.03em;
+    padding:2px 5px; border-radius:4px; width:34px; text-align:center; flex-shrink:0; color:#1b1710;
+  }
+  .ml-role-exp{ background:#d97a7a; }
+  .ml-role-gold{ background:#e0b64c; }
+  .ml-role-jung{ background:#6fbf8a; }
+  .ml-role-mid{ background:#b49cdd; }
+  .ml-role-roam{ background:#7ba7dd; }
+  .ml-player-name{ color:var(--ink); }
 </style>
+
 
 <div class="wrap">
 
@@ -379,7 +409,7 @@
     <div class="stat-row">
       <div class="stat-chip"><b>115</b> pertandingan</div>
       <div class="stat-chip"><b>27</b> hari main</div>
-      <div class="stat-chip"><b>4</b> cabor</div>
+      <div class="stat-chip"><b>5</b> cabor</div>
       <div class="stat-chip"><b>45</b> pendaftaran Badminton (PIC Jepri)</div>
       <div class="stat-chip"><b>25</b> pendaftaran FIFA (PIC Rio)</div>
       <div class="stat-chip"><b>9</b> pendaftaran Futsal (PIC Reno)</div>
@@ -394,6 +424,7 @@
     <button class="tab-btn sport-tab" data-sport="FIFA" aria-selected="false">FIFA</button>
     <button class="tab-btn sport-tab" data-sport="Futsal" aria-selected="false">Futsal</button>
     <button class="tab-btn sport-tab" data-sport="Tennis Meja" aria-selected="false">Tennis Meja</button>
+    <button class="tab-btn sport-tab" data-sport="Mobile Legends" aria-selected="false">Mobile Legends</button>
   </div>
 
   <div class="controls">
@@ -430,6 +461,10 @@
     </div>
     <div id="futsal-standings" hidden></div>
     <div class="bracket-scroll"><div id="bracket-holder"></div></div>
+    <div id="ml-roster" hidden>
+      <div class="standings-title" style="margin-top:22px;">Daftar Tim</div>
+      <div class="ml-teams-grid" id="ml-teams-holder"></div>
+    </div>
   </section>
 
   <footer class="foot">
@@ -602,6 +637,22 @@ const JADWAL = [
 {no:112,hari:'Kamis, 22 Oktober 2026',jam:'18.00–18.20',kat:'Tennis Meja',babak:'Semifinal',kode:'TM-SF-2',a:'Pemenang TM-8B-3',b:'Pemenang TM-8B-4'},
 {no:113,hari:'Rabu, 28 Oktober 2026',jam:'18.30–18.50',kat:'Tennis Meja',babak:'Perebutan Juara 3',kode:'TM-3RD',a:'Kalah TM-SF-1',b:'Kalah TM-SF-2'},
 {no:114,hari:'Rabu, 28 Oktober 2026',jam:'19.00–19.20',kat:'Tennis Meja',babak:'Final',kode:'TM-FINAL',a:'Pemenang TM-SF-1',b:'Pemenang TM-SF-2'},
+{no:116,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'16 Besar',kode:'ML-16B-1',a:'Team 12',b:'Team 7'},
+{no:117,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'16 Besar',kode:'ML-16B-2',a:'Team 8',b:'Team 1'},
+{no:118,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'16 Besar',kode:'ML-16B-3',a:'Team 5',b:'Team 15'},
+{no:119,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'16 Besar',kode:'ML-16B-4',a:'Team 11',b:'Team 2'},
+{no:120,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'16 Besar',kode:'ML-16B-5',a:'Team 16',b:'Team 13'},
+{no:121,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'16 Besar',kode:'ML-16B-6',a:'Team 4',b:'Team 10'},
+{no:122,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'16 Besar',kode:'ML-16B-7',a:'Team 9',b:'Team 3'},
+{no:123,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'16 Besar',kode:'ML-16B-8',a:'Team 6',b:'Team 14'},
+{no:124,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'8 Besar',kode:'ML-8B-1',a:'Pemenang ML-16B-1',b:'Pemenang ML-16B-2'},
+{no:125,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'8 Besar',kode:'ML-8B-2',a:'Pemenang ML-16B-3',b:'Pemenang ML-16B-4'},
+{no:126,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'8 Besar',kode:'ML-8B-3',a:'Pemenang ML-16B-5',b:'Pemenang ML-16B-6'},
+{no:127,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'8 Besar',kode:'ML-8B-4',a:'Pemenang ML-16B-7',b:'Pemenang ML-16B-8'},
+{no:128,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'Semifinal',kode:'ML-SF-1',a:'Pemenang ML-8B-1',b:'Pemenang ML-8B-2'},
+{no:129,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'Semifinal',kode:'ML-SF-2',a:'Pemenang ML-8B-3',b:'Pemenang ML-8B-4'},
+{no:130,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'Perebutan Juara 3',kode:'ML-3RD',a:'Kalah ML-SF-1',b:'Kalah ML-SF-2'},
+{no:131,hari:'Jadwal menyusul',jam:'–',kat:'Mobile Legends',babak:'Final',kode:'ML-F',a:'Pemenang ML-SF-1',b:'Pemenang ML-SF-2'},
 ];
 
 // Bracket: recursive tree per category. A node is either
@@ -685,6 +736,20 @@ const BRACKETS = {
     rounds: ['Penyisihan','16 Besar','8 Besar','Semifinal','Final'],
     final: match('TM-FINAL','Final', match('TM-SF-1','Semifinal', match('TM-8B-1','8 Besar', match('TM-16B-1','16 Besar', match('TM-P-1','Penyisihan', team('Ahmad Hadi Wijaya Kusumah & Amiruddin'), team('Guntur Masputra Jr & Muhada Fadhzil J')), team('I Komang Try Raditya & Niko Fajar Utama')), match('TM-16B-2','16 Besar', team('Ahmad Sulthon Al Ayyubi & Nuzul Ramadani Sumahna'), match('TM-P-2','Penyisihan', team('Muhammad Farros Imaroh & Agus Baihaki'), team('Abdul Hakim Amir & Aries Fajar Kurnia')))), match('TM-8B-2','8 Besar', match('TM-16B-3','16 Besar', match('TM-P-3','Penyisihan', team('Oktadita & Arief Dharmawan'), team('Putra Anjaya & Iqbal Igo')), team('Faiz Nashiruddin & Arief Hardiyanto')), match('TM-16B-4','16 Besar', team('Rama & Safri'), match('TM-P-4','Penyisihan', team('Nazarudin Fahmi & Ferdinan Mardison'), team('Ibnu Sawal & Slamet Kurniawan'))))), match('TM-SF-2','Semifinal', match('TM-8B-3','8 Besar', match('TM-16B-5','16 Besar', match('TM-P-5','Penyisihan', team('Nadira Ulvi & Erika Sihombing'), team('Anjas Riadi & Kiki Aditiya')), team('Andi Rusandi & Agus Sentosa')), match('TM-16B-6','16 Besar', team('Rendi Sabillillah & Rifqi Hazazi'), match('TM-P-6','Penyisihan', team('Reigi Ahmad Fadilah & Ryan Agung Anggoro'), team('Bintang & Arief')))), match('TM-8B-4','8 Besar', match('TM-16B-7','16 Besar', match('TM-P-7','Penyisihan', team('Wandaniel & Ricky Eko W'), team('Syahreza Maulana & Bobby Chaniago')), team('Muhammad Fajar Nugraha & Mochammad Rizky Dhermawan')), match('TM-16B-8','16 Besar', team('Helmi Sudiro & Haryo Paminto A.'), team('Dedi Setiawan & Argabudhy Sasrawiguna'))))),
     thirdCode:'TM-3RD', sfCodes:['TM-SF-1','TM-SF-2']
+  },
+  'Mobile Legends': {
+    rounds: ['16 Besar','8 Besar','Semifinal','Final'],
+    final: match('ML-F','Final',
+      match('ML-SF-1','Semifinal',
+        match('ML-8B-1','8 Besar', match('ML-16B-1','16 Besar', team('Team 12'), team('Team 7')), match('ML-16B-2','16 Besar', team('Team 8'), team('Team 1'))),
+        match('ML-8B-2','8 Besar', match('ML-16B-3','16 Besar', team('Team 5'), team('Team 15')), match('ML-16B-4','16 Besar', team('Team 11'), team('Team 2')))
+      ),
+      match('ML-SF-2','Semifinal',
+        match('ML-8B-3','8 Besar', match('ML-16B-5','16 Besar', team('Team 16'), team('Team 13')), match('ML-16B-6','16 Besar', team('Team 4'), team('Team 10'))),
+        match('ML-8B-4','8 Besar', match('ML-16B-7','16 Besar', team('Team 9'), team('Team 3')), match('ML-16B-8','16 Besar', team('Team 6'), team('Team 14')))
+      )
+    ),
+    thirdCode:'ML-3RD', sfCodes:['ML-SF-1','ML-SF-2']
   }
 };
 
@@ -970,7 +1035,7 @@ const jadwalHolder = document.getElementById('jadwal-days');
 let activeCat = 'all';
 let query = '';
 
-const SPORT_OF = {'Ganda Putra':'Badminton','Ganda Putri':'Badminton','Ganda Campuran':'Badminton','FIFA':'FIFA','Futsal':'Futsal','Tennis Meja':'Tennis Meja'};
+const SPORT_OF = {'Ganda Putra':'Badminton','Ganda Putri':'Badminton','Ganda Campuran':'Badminton','FIFA':'FIFA','Futsal':'Futsal','Tennis Meja':'Tennis Meja','Mobile Legends':'Mobile Legends'};
 let activeSport = 'Badminton';
 
 const BULAN_ID = {Januari:0,Februari:1,Maret:2,April:3,Mei:4,Juni:5,Juli:6,Agustus:7,September:8,Oktober:9,November:10,Desember:11};
@@ -1170,6 +1235,7 @@ function renderBracket(){
       <div class="slot bye${tpARes && tpARes.winnerSlot==='B'?' hi':''}"><span class="name">${tpB}</span></div>
     </div>`;
   bracketHolder.appendChild(tp);
+  mlRenderRoster();
 }
 
 /* ============ tabs & controls ============ */
@@ -1209,7 +1275,7 @@ document.querySelectorAll('.sport-tab').forEach(btn=>{
     activeSport = btn.dataset.sport;
     activeCat = 'all';
     document.querySelectorAll('#cat-filter .chip').forEach(c=>c.setAttribute('aria-pressed', c.dataset.cat==='all' ? 'true':'false'));
-    if(activeSport === 'FIFA' || activeSport === 'Futsal' || activeSport === 'Tennis Meja'){
+    if(activeSport === 'FIFA' || activeSport === 'Futsal' || activeSport === 'Tennis Meja' || activeSport === 'Mobile Legends'){
       catFilterEl.style.display = 'none';
       catTabsEl.style.display = 'none';
       activeBracketCat = activeSport;
@@ -1277,6 +1343,89 @@ document.getElementById('search').addEventListener('input', (e)=>{
 
 renderJadwal();
 renderBracket();
+
+/* ============ Mobile Legends: Land of Dawn Jalin Knockout ============ */
+const ML_TEAMS = [
+  {id:1, name:'Team 1', players:[
+    {role:'EXP', name:'Iqbal Shadiq'}, {role:'GOLD', name:'Ariefd'}, {role:'JUNG', name:'Muhammad Taufik Radityanto'},
+    {role:'MID', name:'Fahcry Syaputra'}, {role:'ROAM', name:'Fiki Wisnu Subekti'}
+  ]},
+  {id:2, name:'Team 2', players:[
+    {role:'EXP', name:'Leonardo Caprio Sihaloho'}, {role:'GOLD', name:'Fajrin Luthfie'}, {role:'JUNG', name:'Phingay Ramadhan'},
+    {role:'MID', name:'Agung Ikbal Apandi'}, {role:'ROAM', name:'Nuzul Ramadhani Sumanna'}
+  ]},
+  {id:3, name:'Team 3', players:[
+    {role:'EXP', name:'Muhammad Ashraf Rahman'}, {role:'GOLD', name:'Yohanes Putranto Suryo Kusumo'}, {role:'JUNG', name:'Maufthauddin Mustaqim'},
+    {role:'MID', name:'Yunan Ramdan'}, {role:'ROAM', name:'Raden Mochamad Nanda Erdia…'}
+  ]},
+  {id:4, name:'Team 4', players:[
+    {role:'EXP', name:'Audry Fadila Putra'}, {role:'GOLD', name:'Christopher Joseph Fredrick H…'}, {role:'JUNG', name:'Dani Mardo'},
+    {role:'MID', name:'Bayu Dipo Satrio'}, {role:'ROAM', name:'Keenan Bahar'}
+  ]},
+  {id:5, name:'Team 5', players:[
+    {role:'EXP', name:'Mochamad Faisal'}, {role:'GOLD', name:'Wahyudi'}, {role:'JUNG', name:'Helmi Sudiro'},
+    {role:'MID', name:'Rezky Pratomo'}, {role:'ROAM', name:'Bagus Arief Aditiya'}
+  ]},
+  {id:6, name:'Team 6', players:[
+    {role:'EXP', name:'Charles Erdison'}, {role:'GOLD', name:'Ryan Agung Anggoro'}, {role:'JUNG', name:'Verico Romadhon'},
+    {role:'MID', name:'Niken Pratiwi'}, {role:'ROAM', name:'Rezki Dwy Putra'}
+  ]},
+  {id:7, name:'Team 7', players:[
+    {role:'EXP', name:'Edo Eronia Effendi'}, {role:'GOLD', name:'Ahmad Rizky'}, {role:'JUNG', name:'Muhammad Farros Imaroh'},
+    {role:'MID', name:'Muhammad Venusman Kemando'}, {role:'ROAM', name:'Mickhael'}
+  ]},
+  {id:8, name:'Team 8', players:[
+    {role:'EXP', name:'Moch Dira Issyari'}, {role:'GOLD', name:'Rozaan Naufal'}, {role:'JUNG', name:'Dewantara Harwidya Argakusu…'},
+    {role:'MID', name:'Roni'}, {role:'ROAM', name:'Arief Hardiyanto'}
+  ]},
+  {id:9, name:'Team 9', players:[
+    {role:'EXP', name:'Normandia Cakra Wijaya'}, {role:'GOLD', name:'Denno Irawan'}, {role:'JUNG', name:'Chris Marenda'},
+    {role:'MID', name:'Muhammad Hafizh Abdurrahman'}, {role:'ROAM', name:'Caesar Bayu Maulana'}
+  ]},
+  {id:10, name:'Team 10', players:[
+    {role:'EXP', name:'Moch Faris Oldie'}, {role:'GOLD', name:'Arief Rachmady'}, {role:'JUNG', name:'Syubhan Aulia Agassi'},
+    {role:'MID', name:'Jaka Brajadenta'}, {role:'ROAM', name:'Reigi Ahmad Fadilah'}
+  ]},
+  {id:11, name:'Team 11', players:[
+    {role:'EXP', name:'Hanif Catur Adrianto'}, {role:'GOLD', name:'Muhammad Rizky'}, {role:'JUNG', name:'Aldo Rizky Kurniawan'},
+    {role:'MID', name:'Putra Anjaya'}, {role:'ROAM', name:'Anjas'}
+  ]},
+  {id:12, name:'Team 12', players:[
+    {role:'EXP', name:'Robby'}, {role:'GOLD', name:'Nugi Sifaturahman'}, {role:'JUNG', name:'Naufal Alim Wahib'},
+    {role:'MID', name:'Maruli'}, {role:'ROAM', name:'Abdullah Imaduddin'}
+  ]},
+  {id:13, name:'Team 13', players:[
+    {role:'EXP', name:'Ilham Rhasyied Baihaqi'}, {role:'GOLD', name:'Slamet Kurniawan'}, {role:'JUNG', name:'Darma Sutodo Sihombing'},
+    {role:'MID', name:'Fachry Wirawan'}, {role:'ROAM', name:'M. Arta Yuwanda'}
+  ]},
+  {id:14, name:'Team 14', players:[
+    {role:'EXP', name:'Ardiansyah'}, {role:'GOLD', name:'Historida Aji'}, {role:'JUNG', name:'Muhamad Fajar Nugraha'},
+    {role:'MID', name:'Gersom Sitompul'}, {role:'ROAM', name:'Andreas Kintaka'}
+  ]},
+  {id:15, name:'Team 15', players:[
+    {role:'EXP', name:'Yusuf Verdy'}, {role:'GOLD', name:'Kevin Dwi Syahputra'}, {role:'JUNG', name:'Rendi Sabillilah'},
+    {role:'MID', name:'Kartika Amareta'}, {role:'ROAM', name:'Muhammad Qurtusy'}
+  ]},
+  {id:16, name:'Team 16', players:[
+    {role:'EXP', name:'Arya Dwi Kurnia'}, {role:'GOLD', name:'Roland Lumbantobing'}, {role:'JUNG', name:'Mahesa Rere Sabil'},
+    {role:'MID', name:'Farqan Thanzalla'}, {role:'ROAM', name:'Bayu Akbar'}
+  ]}
+];
+
+function mlRenderRoster(){
+  const holder = document.getElementById('ml-roster');
+  if(!holder) return;
+  if(activeBracketCat !== 'Mobile Legends'){ holder.hidden = true; return; }
+  holder.hidden = false;
+  const teamsHolder = document.getElementById('ml-teams-holder');
+  teamsHolder.innerHTML = ML_TEAMS.map(t=>`
+    <div class="ml-team-card">
+      <div class="ml-team-card-head"><b>${t.name}</b><span class="ml-team-count">${t.players.length} PEMAIN</span></div>
+      ${t.players.map(p=>`<div class="ml-player"><span class="ml-role ml-role-${p.role.toLowerCase()}">${p.role}</span><span class="ml-player-name">${p.name}</span></div>`).join('')}
+    </div>
+  `).join('');
+}
+
 // initDb() is called by the Firebase module script above once it has
 // finished wiring window.fbOnAuthChange / window.fbOnResults — module
 // scripts execute after this classic script, so calling it from here
